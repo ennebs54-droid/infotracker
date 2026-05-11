@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Delivery Tracking Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero-section">
+      <p class="eyebrow">Shipment Tracking</p>
+      <h1>Track Your Order</h1>
+      <p class="hero-copy">Enter your tracking number to get instant shipment visibility, progress updates, and delivery timing.</p>
+      <div class="search-panel card">
+        <form id="track-form" class="track-form" autocomplete="off">
+          <label for="trackingNumber" class="sr-only">Tracking Number</label>
+          <div class="input-group premium-input">
+            <span class="icon"><i data-lucide="package"></i></span>
+            <input id="trackingNumber" type="text" placeholder="Enter Tracking Number" />
+          </div>
+          <button type="submit" class="primary-btn premium-btn">Track Order</button>
+        </form>
+        <div id="statusMessage" class="status-message"></div>
+      </div>
+    </header>
+
+    <section id="resultsSection" class="results-section hidden">
+      <div class="cards-grid">
+        <article class="card overview-card">
+          <div class="card-header">
+            <div>
+              <p class="section-label">Tracking Number</p>
+              <h2 id="displayTracking">TRK123456</h2>
+            </div>
+            <span id="statusBadge" class="status-badge">In Transit</span>
+          </div>
+          <div class="overview-detail">
+            <div>
+              <p class="subtle">Estimated Delivery</p>
+              <p id="deliveryDate" class="strong">May 14, 2026</p>
+            </div>
+            <div>
+              <p class="subtle">Courier</p>
+              <p id="courierInfo" class="strong">Global Express</p>
+            </div>
+          </div>
+          <div class="overview-address">
+            <p class="subtle">Origin Address</p>
+            <p id="shippedAddress" class="strong address-text">48 Willowbrook Lane<br>Manchester,<br>UK</p>
+          </div>
+        </article>
+
+        <article class="card activity-card">
+          <div class="card-header">
+            <div>
+              <p class="section-label">Latest Update</p>
+              <h2 id="latestUpdate">Shipment has left the sorting facility</h2>
+            </div>
+            <span class="icon icon-small"><i data-lucide="clock"></i></span>
+          </div>
+          <div class="activity-meta">
+            <div>
+              <p class="subtle">Location</p>
+              <p id="packageLocation" class="strong">Memphis, TN</p>
+            </div>
+            <div>
+              <p class="subtle">Carrier</p>
+              <p id="companyName" class="strong">UPS Logistics</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <article class="card progress-card">
+        <div class="card-header">
+          <div>
+            <p class="section-label">Progress Tracker</p>
+            <h2>Shipment status timeline</h2>
+          </div>
+        </div>
+        <div class="progress-wrapper">
+          <div class="progress-bar-track">
+            <div id="progressBar" class="progress-bar-fill"></div>
+          </div>
+          <div class="progress-steps">
+            <div class="step" data-step="Ordered">
+              <span class="step-dot"></span>
+              <span>Ordered</span>
+            </div>
+            <div class="step" data-step="Confirmed">
+              <span class="step-dot"></span>
+              <span>Confirmed</span>
+            </div>
+            <div class="step" data-step="Shipped">
+              <span class="step-dot"></span>
+              <span>Shipped</span>
+            </div>
+            <div class="step" data-step="Out for Delivery">
+              <span class="step-dot"></span>
+              <span>Out for Delivery</span>
+            </div>
+            <div class="step" data-step="Delivered">
+              <span class="step-dot"></span>
+              <span>Delivered</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card timeline-card">
+        <div class="card-header">
+          <div>
+            <p class="section-label">Activity Timeline</p>
+            <h2>Tracking updates</h2>
+          </div>
+        </div>
+        <ul id="timelineList" class="timeline-list"></ul>
+      </article>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+  <script>window.addEventListener('load', ()=>lucide.replace())</script>
+</body>
+</html>
