@@ -141,4 +141,5 @@ trackingNumberInput.addEventListener('input', () => {
 
 window.addEventListener('load', () => {
   trackingNumberInput.value = '';
+  lucide.replace();
 });

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Delivery Tracking Dashboard</title>
+  <title>Delivery Tracking</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
 </head>
@@ -15,15 +15,15 @@
     <header class="hero-section">
       <p class="eyebrow">Shipment Tracking</p>
       <h1>Track Your Order</h1>
-      <p class="hero-copy">Enter your tracking number to get instant shipment visibility, progress updates, and delivery timing.</p>
-      <div class="search-panel card">
+      <p class="hero-copy">Enter your tracking number to get real-time shipment updates and delivery timing.</p>
+      <div class="search-panel">
         <form id="track-form" class="track-form" autocomplete="off">
           <label for="trackingNumber" class="sr-only">Tracking Number</label>
-          <div class="input-group premium-input">
+          <div class="input-group">
             <span class="icon"><i data-lucide="package"></i></span>
-            <input id="trackingNumber" type="text" placeholder="Enter Tracking Number" value="" autocomplete="off" />
+            <input id="trackingNumber" type="text" placeholder="Enter Tracking Number" autocomplete="off" />
           </div>
-          <button type="submit" class="primary-btn premium-btn">Track Order</button>
+          <button type="submit" class="primary-btn">Track Order</button>
         </form>
         <div id="statusMessage" class="status-message"></div>
       </div>
@@ -35,23 +35,23 @@
           <div class="card-header">
             <div>
               <p class="section-label">Tracking Number</p>
-              <h2 id="displayTracking">TRK123456</h2>
+              <h2 id="displayTracking"></h2>
             </div>
-            <span id="statusBadge" class="status-badge">In Transit</span>
+            <span id="statusBadge" class="status-badge"></span>
           </div>
           <div class="overview-detail">
             <div>
               <p class="subtle">Estimated Delivery</p>
-              <p id="deliveryDate" class="strong">May 14, 2026</p>
+              <p id="deliveryDate" class="strong"></p>
             </div>
             <div>
               <p class="subtle">Courier</p>
-              <p id="courierInfo" class="strong">Global Express</p>
+              <p id="courierInfo" class="strong"></p>
             </div>
           </div>
           <div class="overview-address">
             <p class="subtle">Origin Address</p>
-            <p id="shippedAddress" class="strong address-text">48 Willowbrook Lane<br>Manchester,<br>UK</p>
+            <p id="shippedAddress" class="strong address-text"></p>
           </div>
         </article>
 
@@ -59,18 +59,18 @@
           <div class="card-header">
             <div>
               <p class="section-label">Latest Update</p>
-              <h2 id="latestUpdate">Shipment has left the sorting facility</h2>
+              <h2 id="latestUpdate"></h2>
             </div>
             <span class="icon icon-small"><i data-lucide="clock"></i></span>
           </div>
           <div class="activity-meta">
             <div>
               <p class="subtle">Location</p>
-              <p id="packageLocation" class="strong">Memphis, TN</p>
+              <p id="packageLocation" class="strong"></p>
             </div>
             <div>
               <p class="subtle">Carrier</p>
-              <p id="companyName" class="strong">UPS Logistics</p>
+              <p id="companyName" class="strong"></p>
             </div>
           </div>
         </article>
@@ -88,26 +88,11 @@
             <div id="progressBar" class="progress-bar-fill"></div>
           </div>
           <div class="progress-steps">
-            <div class="step" data-step="Ordered">
-              <span class="step-dot"></span>
-              <span>Ordered</span>
-            </div>
-            <div class="step" data-step="Confirmed">
-              <span class="step-dot"></span>
-              <span>Confirmed</span>
-            </div>
-            <div class="step" data-step="Shipped">
-              <span class="step-dot"></span>
-              <span>Shipped</span>
-            </div>
-            <div class="step" data-step="Out for Delivery">
-              <span class="step-dot"></span>
-              <span>Out for Delivery</span>
-            </div>
-            <div class="step" data-step="Delivered">
-              <span class="step-dot"></span>
-              <span>Delivered</span>
-            </div>
+            <div class="step" data-step="Ordered"><span class="step-dot"></span><span>Ordered</span></div>
+            <div class="step" data-step="Confirmed"><span class="step-dot"></span><span>Confirmed</span></div>
+            <div class="step" data-step="Shipped"><span class="step-dot"></span><span>Shipped</span></div>
+            <div class="step" data-step="Out for Delivery"><span class="step-dot"></span><span>Out for Delivery</span></div>
+            <div class="step" data-step="Delivered"><span class="step-dot"></span><span>Delivered</span></div>
           </div>
         </div>
       </article>
@@ -125,6 +110,6 @@
   </div>
 
   <script src="script.js"></script>
-  <script>window.addEventListener('load', ()=>lucide.replace())</script>
+  <script>window.addEventListener('load', () => lucide.replace())</script>
 </body>
 </html>
