@@ -138,3 +138,7 @@ trackingNumberInput.addEventListener('input', () => {
     clearError();
   }
 });
+
+window.addEventListener('load', () => {
+  trackingNumberInput.value = '';
+});
