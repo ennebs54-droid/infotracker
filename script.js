@@ -1,7 +1,7 @@
-const VALID_TRACKING_NUMBER = 'TRKBU372';
+const VALID_TRACKING_NUMBER = 'EXWUO327';
 
 const BASE_TRACKING_DATA = {
-  TRKBU372: {
+  EXWUO327: {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'FedEx Logistics',
@@ -130,7 +130,18 @@ trackForm.addEventListener('submit', (event) => {
     return;
   }
   clearError();
-  showResult(BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], VALID_TRACKING_NUMBER);
+  fetch('/api/delivery-estimate')
+    .then(r => r.json())
+    .then(({ estimatedDelivery }) => {
+      const data = { ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery };
+      showResult(data, VALID_TRACKING_NUMBER);
+    })
+    .catch(() => {
+      const future = new Date();
+      future.setDate(future.getDate() + 5);
+      const data = { ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery: future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) };
+      showResult(data, VALID_TRACKING_NUMBER);
+    });
 });
 
 trackingNumberInput.addEventListener('input', () => {
