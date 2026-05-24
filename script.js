@@ -1,4 +1,4 @@
-const VALID_TRACKING_NUMBER = 'EXWUO327';
+const VALID_TRACKING_NUMBER = 'TRKBU372';
 
 const BASE_TRACKING_DATA = {
   EXWUO327: {
@@ -42,30 +42,7 @@ const statusStyles = {
   Processing: { background: '#5b5fd3', text: '#ffffff' },
   Confirmed: { background: '#3498db', text: '#ffffff' },
   'Out for Delivery': { background: '#f39c12', text: '#ffffff' },
-  Pending: { background: '#9ca3af', text: '#ffffff' }
-};
 
-const FIRST_TRACKED_KEY = 'first-tracked-date';
-
-function getDaysSinceFirstTracked() {
-  const stored = localStorage.getItem(FIRST_TRACKED_KEY);
-  if (!stored) return 0;
-  const diff = Date.now() - parseInt(stored, 10);
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-}
-
-function applyPendingIfDay2(data) {
-  const days = getDaysSinceFirstTracked();
-  if (days === 1) {
-    return {
-      ...data,
-      status: 'Pending',
-      latestUpdate: 'Shipment is pending processing at the distribution center.',
-      progress: ['Ordered', 'Confirmed']
-    };
-  }
-  return data;
-}
 
 function loadOverrides() {
   try {
@@ -153,19 +130,16 @@ trackForm.addEventListener('submit', (event) => {
     return;
   }
   clearError();
-  if (!localStorage.getItem(FIRST_TRACKED_KEY)) {
-    localStorage.setItem(FIRST_TRACKED_KEY, Date.now().toString());
-  }
   fetch('/api/delivery-estimate')
     .then(r => r.json())
     .then(({ estimatedDelivery }) => {
-      const data = applyPendingIfDay2({ ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery });
+      const data = { ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery };
       showResult(data, VALID_TRACKING_NUMBER);
     })
     .catch(() => {
       const future = new Date();
       future.setDate(future.getDate() + 5);
-      const data = applyPendingIfDay2({ ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery: future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) });
+      const data = { ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery: future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) };
       showResult(data, VALID_TRACKING_NUMBER);
     });
 });

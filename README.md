@@ -17,4 +17,4 @@ A static delivery tracking website hosted on Netlify.
 
 ## Valid Tracking Number
 
-The only accepted tracking number is: **EXWUO327**
+The only accepted tracking number is: **TRKBU372**
