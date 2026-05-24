@@ -1,7 +1,7 @@
 const VALID_TRACKING_NUMBER = 'TRKBU372';
 
 const BASE_TRACKING_DATA = {
-  EXWUO327: {
+  TRKBU372: {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'FedEx Logistics',
@@ -41,7 +41,8 @@ const statusStyles = {
   'In Transit': { background: '#f39c12', text: '#ffffff' },
   Processing: { background: '#5b5fd3', text: '#ffffff' },
   Confirmed: { background: '#3498db', text: '#ffffff' },
-  'Out for Delivery': { background: '#f39c12', text: '#ffffff' },
+  'Out for Delivery': { background: '#f39c12', text: '#ffffff' }
+};
 
 
 function loadOverrides() {
