@@ -1,7 +1,22 @@
-const VALID_TRACKING_NUMBER = 'TRKBU372';
+const VALID_TRACKING_NUMBERS = ['TRKBU372', 'DGF26534'];
 
 const BASE_TRACKING_DATA = {
   TRKBU372: {
+    status: 'In Transit',
+    courier: 'Global Express',
+    company: 'FedEx Logistics',
+    location: 'Manchester, UK',
+    estimatedDelivery: 'May 14, 2026',
+    latestUpdate: 'Package departed sort facility and is en route to distribution center.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timeline: [
+      { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
+      { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
+      { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: '48 Willowbrook Lane, Manchester, UK'
+  },
+  DGF26534: {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'FedEx Logistics',
@@ -126,23 +141,12 @@ trackForm.addEventListener('submit', (event) => {
   event.preventDefault();
   clearError();
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
-  if (cleaned !== VALID_TRACKING_NUMBER) {
+  if (!VALID_TRACKING_NUMBERS.includes(cleaned)) {
     showError('Invalid Tracking Number');
     return;
   }
   clearError();
-  fetch('/api/delivery-estimate')
-    .then(r => r.json())
-    .then(({ estimatedDelivery }) => {
-      const data = { ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery };
-      showResult(data, VALID_TRACKING_NUMBER);
-    })
-    .catch(() => {
-      const future = new Date();
-      future.setDate(future.getDate() + 5);
-      const data = { ...BASE_TRACKING_DATA[VALID_TRACKING_NUMBER], estimatedDelivery: future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) };
-      showResult(data, VALID_TRACKING_NUMBER);
-    });
+  showResult(BASE_TRACKING_DATA[cleaned], cleaned);
 });
 
 trackingNumberInput.addEventListener('input', () => {
