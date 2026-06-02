@@ -1,4 +1,5 @@
-const VALID_TRACKING_NUMBERS = ['TRKBU372', 'DGF26534'];
+const VALID_TRACKING_NUMBERS = ['DGF26534'];
+const DISABLED_UNTIL = { TRKBU372: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) };
 
 const BASE_TRACKING_DATA = {
   TRKBU372: {
@@ -141,6 +142,10 @@ trackForm.addEventListener('submit', (event) => {
   event.preventDefault();
   clearError();
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
+  if (DISABLED_UNTIL[cleaned] && new Date() < DISABLED_UNTIL[cleaned]) {
+    showError('This tracking number is temporarily unavailable. Please try again later.');
+    return;
+  }
   if (!VALID_TRACKING_NUMBERS.includes(cleaned)) {
     showError('Invalid Tracking Number');
     return;
