@@ -82,6 +82,16 @@ function setStatusBadge(status) {
   statusBadge.style.color = style.text;
 }
 
+function getEstimatedDeliveryDate(days = 6) {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
 function setProgress(progressSteps) {
   const completed = progressSteps.length;
   const total = stepElements.length;
@@ -116,8 +126,10 @@ function renderTimeline(entries) {
 }
 
 function showResult(data, trackingKey) {
+  const estimatedDelivery = getEstimatedDeliveryDate(6);
+
   displayTracking.textContent = trackingKey;
-  deliveryDate.textContent = data.estimatedDelivery;
+  deliveryDate.textContent = estimatedDelivery;
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
   packageLocation.textContent = data.location;
