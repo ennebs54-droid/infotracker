@@ -6,37 +6,34 @@ const BASE_TRACKING_DATA = {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'FedEx Logistics',
-    location: 'Manchester, UK',
     estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package departed sort facility and is en route to distribution center.',
+    latestUpdate: 'Package departed sort facility and is en route to destination country.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timeline: [
       { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub.' },
       { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
       { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: '48 Willowbrook Lane<br>Manchester, UK'
+    originAddress: 'Manchester, UK'
   },
   DGF26534: {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'FedEx Logistics',
-    location: 'Manchester, UK',
     estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package departed sort facility and is en route to distribution center.',
+    latestUpdate: 'Package departed sort facility and is en route to destination country.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timeline: [
       { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub.' },
       { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
       { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: '48 Willowbrook Lane<br>Manchester, UK'
+    originAddress: 'Manchester, UK'
   },
   TEAFD5372: {
     status: 'Awaiting Approval',
     courier: 'Global Express',
     company: 'FedEx Logistics',
-    location: 'Bangkok, Thailand',
     estimatedDelivery: 'May 14, 2026',
     latestUpdate: 'Package is awaiting approval before processing.',
     progress: ['Ordered', 'Confirmed'],
@@ -116,7 +113,6 @@ function showResult(data, trackingKey) {
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
   shippedAddressField.innerHTML = data.originAddress;
-  latestUpdate.textContent = data.latestUpdate;
   setStatusBadge(data.status);
   setProgress(data.progress);
   renderTimeline(data.timeline);
@@ -125,11 +121,13 @@ function showResult(data, trackingKey) {
   fetch('https://ipapi.co/json/')
     .then(r => r.json())
     .then(geo => {
-      const country = geo.country_name || '';
-      packageLocation.textContent = country || 'Unknown';
+      const country = geo.country_name || 'Unknown';
+      packageLocation.textContent = country;
+      latestUpdate.textContent = `${data.latestUpdate.replace('destination country', country)}`;
     })
     .catch(() => {
-      packageLocation.textContent = data.location;
+      packageLocation.textContent = 'Unknown';
+      latestUpdate.textContent = data.latestUpdate;
     });
 }
 
