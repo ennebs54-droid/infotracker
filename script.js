@@ -123,6 +123,10 @@ function showResult(data, trackingKey) {
     .then(geo => {
       const country = geo.country_name || 'Unknown';
       if (trackingKey === 'TEAFD5372') {
+        const future = new Date();
+        future.setDate(future.getDate() + 2);
+        deliveryDate.textContent = future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      }
         packageLocation.textContent = country;
         latestUpdate.textContent = `${data.latestUpdate.replace('destination country', country)}`;
       } else {
