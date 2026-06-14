@@ -131,6 +131,9 @@ function showResult(data, trackingKey) {
         packageLocation.textContent = country;
         latestUpdate.textContent = data.latestUpdate.replace('destination country', country);
       } else {
+        const future = new Date();
+        future.setDate(future.getDate() + 6);
+        deliveryDate.textContent = future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
         packageLocation.textContent = 'Manchester, UK';
         latestUpdate.textContent = data.latestUpdate;
       }
