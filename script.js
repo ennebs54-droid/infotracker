@@ -44,7 +44,7 @@ const BASE_TRACKING_DATA = {
       { time: 'Today, 10:24 AM', event: 'Awaiting Approval', note: 'Package is pending approval before it can be processed.' },
       { time: 'Yesterday, 8:00 AM', event: 'Order Confirmed', note: 'Order has been confirmed and is awaiting approval.' }
     ],
-    originAddress: 'Bangkok, Thailand'
+    originAddress: 'Manchester, UK'
   }
 };
 
@@ -125,9 +125,8 @@ function showResult(data, trackingKey) {
   fetch('https://ipapi.co/json/')
     .then(r => r.json())
     .then(geo => {
-      const city = geo.city || '';
       const country = geo.country_name || '';
-      packageLocation.textContent = city && country ? `${city}, ${country}` : country || 'Unknown';
+      packageLocation.textContent = country || 'Unknown';
     })
     .catch(() => {
       packageLocation.textContent = data.location;
