@@ -1,4 +1,4 @@
-const VALID_TRACKING_NUMBERS = ['DGF26534'];
+const VALID_TRACKING_NUMBERS = ['DGF26534', 'TEAFD5372'];
 const DISABLED_UNTIL = { TRKBU372: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) };
 
 const BASE_TRACKING_DATA = {
@@ -31,6 +31,20 @@ const BASE_TRACKING_DATA = {
       { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
+  },
+  TEAFD5372: {
+    status: 'Awaiting Approval',
+    courier: 'Global Express',
+    company: 'FedEx Logistics',
+    location: 'Bangkok, Thailand',
+    estimatedDelivery: 'May 14, 2026',
+    latestUpdate: 'Package is awaiting approval before processing.',
+    progress: ['Ordered', 'Confirmed'],
+    timeline: [
+      { time: 'Today, 10:24 AM', event: 'Awaiting Approval', note: 'Package is pending approval before it can be processed.' },
+      { time: 'Yesterday, 8:00 AM', event: 'Order Confirmed', note: 'Order has been confirmed and is awaiting approval.' }
+    ],
+    originAddress: 'Bangkok, Thailand'
   }
 };
 
@@ -53,6 +67,7 @@ const stepElements = Array.from(document.querySelectorAll('.step'));
 const shippedAddressField = document.getElementById('shippedAddress');
 
 const statusStyles = {
+  'Awaiting Approval': { background: '#e74c3c', text: '#ffffff' },
   Delivered: { background: '#2f9c69', text: '#ffffff' },
   'In Transit': { background: '#f39c12', text: '#ffffff' },
   Processing: { background: '#5b5fd3', text: '#ffffff' },
