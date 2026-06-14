@@ -115,13 +115,23 @@ function showResult(data, trackingKey) {
   deliveryDate.textContent = data.estimatedDelivery;
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
-  packageLocation.textContent = data.location;
   shippedAddressField.innerHTML = data.originAddress;
   latestUpdate.textContent = data.latestUpdate;
   setStatusBadge(data.status);
   setProgress(data.progress);
   renderTimeline(data.timeline);
   resultsSection.classList.remove('hidden');
+
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(geo => {
+      const city = geo.city || '';
+      const country = geo.country_name || '';
+      packageLocation.textContent = city && country ? `${city}, ${country}` : country || 'Unknown';
+    })
+    .catch(() => {
+      packageLocation.textContent = data.location;
+    });
 }
 
 function showError(message) {
