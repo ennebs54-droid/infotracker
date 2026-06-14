@@ -113,6 +113,8 @@ function showResult(data, trackingKey) {
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
   shippedAddressField.innerHTML = data.originAddress;
+  packageLocation.textContent = 'Loading...';
+  latestUpdate.textContent = data.latestUpdate;
   setStatusBadge(data.status);
   setProgress(data.progress);
   renderTimeline(data.timeline);
