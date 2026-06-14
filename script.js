@@ -35,7 +35,7 @@ const BASE_TRACKING_DATA = {
     courier: 'Global Express',
     company: 'FedEx Logistics',
     estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package is awaiting approval before processing.',
+    latestUpdate: 'Package is awaiting approval before processing in destination country.',
     progress: ['Ordered', 'Confirmed'],
     timeline: [
       { time: 'Today, 10:24 AM', event: 'Awaiting Approval', note: 'Package is pending approval before it can be processed.' },
@@ -122,11 +122,16 @@ function showResult(data, trackingKey) {
     .then(r => r.json())
     .then(geo => {
       const country = geo.country_name || 'Unknown';
-      packageLocation.textContent = country;
-      latestUpdate.textContent = `${data.latestUpdate.replace('destination country', country)}`;
+      if (trackingKey === 'TEAFD5372') {
+        packageLocation.textContent = country;
+        latestUpdate.textContent = `${data.latestUpdate.replace('destination country', country)}`;
+      } else {
+        packageLocation.textContent = 'Manchester, UK';
+        latestUpdate.textContent = data.latestUpdate;
+      }
     })
     .catch(() => {
-      packageLocation.textContent = 'Unknown';
+      packageLocation.textContent = trackingKey === 'TEAFD5372' ? 'Unknown' : 'Manchester, UK';
       latestUpdate.textContent = data.latestUpdate;
     });
 }
