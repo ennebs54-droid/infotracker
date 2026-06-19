@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Delivery Tracking</title>
+  <title>TrackSuite — Premium Delivery Tracking</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
 </head>
 <body>
   <div class="page-shell">
     <header class="hero-section">
-      <p class="eyebrow">Shipment Tracking</p>
-      <h1>Track Your Order</h1>
-      <p class="hero-copy">Enter your tracking number to get real-time shipment updates and delivery timing.</p>
+      <p class="eyebrow">⚡ Live Shipment Tracking</p>
+      <h1>Track Your Package<br>In Real Time</h1>
+      <p class="hero-copy">Enter your tracking number below for instant visibility into your shipment's location, status, and estimated delivery.</p>
       <div class="search-panel">
         <form id="track-form" class="track-form" autocomplete="off">
           <label for="trackingNumber" class="sr-only">Tracking Number</label>
           <div class="input-group">
-            <span class="icon"><i data-lucide="package"></i></span>
-            <input id="trackingNumber" type="text" placeholder="Enter Tracking Number" autocomplete="off" value="" />
+            <span class="icon"><i data-lucide="package-search"></i></span>
+            <input id="trackingNumber" type="text" placeholder="Enter your tracking number..." autocomplete="off" value="" />
           </div>
-          <button type="submit" class="primary-btn">Track Order</button>
+          <button type="submit" class="primary-btn">Track Shipment →</button>
         </form>
         <div id="statusMessage" class="status-message"></div>
       </div>
@@ -61,11 +61,11 @@
               <p class="section-label">Latest Update</p>
               <h2 id="latestUpdate"></h2>
             </div>
-            <span class="icon icon-small"><i data-lucide="clock"></i></span>
+            <span class="icon-small"><i data-lucide="clock"></i></span>
           </div>
           <div class="activity-meta">
             <div>
-              <p class="subtle">Location</p>
+              <p class="subtle">Current Location</p>
               <p id="packageLocation" class="strong"></p>
             </div>
             <div>
@@ -79,8 +79,8 @@
       <article class="card progress-card">
         <div class="card-header">
           <div>
-            <p class="section-label">Progress Tracker</p>
-            <h2>Shipment status timeline</h2>
+            <p class="section-label">Shipment Progress</p>
+            <h2>Live status timeline</h2>
           </div>
         </div>
         <div class="progress-wrapper">
@@ -100,8 +100,8 @@
       <article class="card timeline-card">
         <div class="card-header">
           <div>
-            <p class="section-label">Activity Timeline</p>
-            <h2>Tracking updates</h2>
+            <p class="section-label">Activity Log</p>
+            <h2>Full tracking history</h2>
           </div>
         </div>
         <ul id="timelineList" class="timeline-list"></ul>
