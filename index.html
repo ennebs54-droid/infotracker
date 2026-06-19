@@ -6,107 +6,136 @@
   <title>TrackSuite — Premium Delivery Tracking</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
 </head>
 <body>
+
+  <!-- Background orbs -->
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+
   <div class="page-shell">
+
+    <!-- Nav Bar -->
+    <nav class="navbar">
+      <div class="nav-logo">
+        <i data-lucide="package-2"></i>
+        <span>TrackSuite</span>
+      </div>
+      <div class="nav-badge">Live Tracking</div>
+    </nav>
+
+    <!-- Hero -->
     <header class="hero-section">
-      <p class="eyebrow">⚡ Live Shipment Tracking</p>
-      <h1>Track Your Package<br>In Real Time</h1>
-      <p class="hero-copy">Enter your tracking number below for instant visibility into your shipment's location, status, and estimated delivery.</p>
+      <div class="hero-tag">
+        <span class="tag-dot"></span>
+        Real-time shipment visibility
+      </div>
+      <h1>Know exactly where<br><span class="gradient-text">your package is.</span></h1>
+      <p class="hero-copy">Enter your tracking number for instant updates on your shipment's location, status, and estimated arrival.</p>
+
       <div class="search-panel">
         <form id="track-form" class="track-form" autocomplete="off">
           <label for="trackingNumber" class="sr-only">Tracking Number</label>
-          <div class="input-group">
-            <span class="icon"><i data-lucide="package-search"></i></span>
-            <input id="trackingNumber" type="text" placeholder="Enter your tracking number..." autocomplete="off" value="" />
+          <div class="input-wrap">
+            <div class="input-group">
+              <span class="input-icon"><i data-lucide="scan-line"></i></span>
+              <input id="trackingNumber" type="text" placeholder="Enter tracking number e.g. DGF26534" autocomplete="off" value="" />
+            </div>
+            <button type="submit" class="primary-btn">
+              <span>Track Now</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
           </div>
-          <button type="submit" class="primary-btn">Track Shipment →</button>
         </form>
         <div id="statusMessage" class="status-message"></div>
       </div>
+
+      <div class="trust-bar">
+        <div class="trust-item"><i data-lucide="shield-check"></i> Secure & Private</div>
+        <div class="trust-divider"></div>
+        <div class="trust-item"><i data-lucide="zap"></i> Instant Results</div>
+        <div class="trust-divider"></div>
+        <div class="trust-item"><i data-lucide="globe"></i> Worldwide Tracking</div>
+      </div>
     </header>
 
+    <!-- Results -->
     <section id="resultsSection" class="results-section hidden">
-      <div class="cards-grid">
-        <article class="card overview-card">
-          <div class="card-header">
-            <div>
-              <p class="section-label">Tracking Number</p>
-              <h2 id="displayTracking"></h2>
-            </div>
-            <span id="statusBadge" class="status-badge"></span>
-          </div>
-          <div class="overview-detail">
-            <div>
-              <p class="subtle">Estimated Delivery</p>
-              <p id="deliveryDate" class="strong"></p>
-            </div>
-            <div>
-              <p class="subtle">Courier</p>
-              <p id="courierInfo" class="strong"></p>
-            </div>
-          </div>
-          <div class="overview-address">
-            <p class="subtle">Origin Address</p>
-            <p id="shippedAddress" class="strong address-text"></p>
-          </div>
-        </article>
 
-        <article class="card activity-card">
-          <div class="card-header">
-            <div>
-              <p class="section-label">Latest Update</p>
-              <h2 id="latestUpdate"></h2>
-            </div>
-            <span class="icon-small"><i data-lucide="clock"></i></span>
-          </div>
-          <div class="activity-meta">
-            <div>
-              <p class="subtle">Current Location</p>
-              <p id="packageLocation" class="strong"></p>
-            </div>
-            <div>
-              <p class="subtle">Carrier</p>
-              <p id="companyName" class="strong"></p>
-            </div>
-          </div>
+      <div class="results-header">
+        <div class="results-header-left">
+          <p class="results-label">Tracking Results</p>
+          <h2 class="results-title" id="displayTracking"></h2>
+        </div>
+        <span id="statusBadge" class="status-badge"></span>
+      </div>
+
+      <div class="cards-grid">
+        <article class="card card-delivery">
+          <div class="card-icon-wrap"><i data-lucide="calendar-check"></i></div>
+          <p class="card-label">Estimated Delivery</p>
+          <p id="deliveryDate" class="card-value"></p>
+        </article>
+        <article class="card card-location">
+          <div class="card-icon-wrap"><i data-lucide="map-pin"></i></div>
+          <p class="card-label">Current Location</p>
+          <p id="packageLocation" class="card-value"></p>
+        </article>
+        <article class="card card-courier">
+          <div class="card-icon-wrap"><i data-lucide="truck"></i></div>
+          <p class="card-label">Courier</p>
+          <p id="courierInfo" class="card-value"></p>
+        </article>
+        <article class="card card-origin">
+          <div class="card-icon-wrap"><i data-lucide="warehouse"></i></div>
+          <p class="card-label">Origin</p>
+          <p id="shippedAddress" class="card-value"></p>
         </article>
       </div>
 
-      <article class="card progress-card">
-        <div class="card-header">
-          <div>
-            <p class="section-label">Shipment Progress</p>
-            <h2>Live status timeline</h2>
-          </div>
+      <!-- Latest Update Banner -->
+      <div class="update-banner">
+        <div class="update-pulse"></div>
+        <div class="update-content">
+          <p class="update-label">Latest Update</p>
+          <p id="latestUpdate" class="update-text"></p>
         </div>
-        <div class="progress-wrapper">
-          <div class="progress-bar-track">
-            <div id="progressBar" class="progress-bar-fill"></div>
-          </div>
-          <div class="progress-steps">
-            <div class="step" data-step="Ordered"><span class="step-dot"></span><span>Ordered</span></div>
-            <div class="step" data-step="Confirmed"><span class="step-dot"></span><span>Confirmed</span></div>
-            <div class="step" data-step="Shipped"><span class="step-dot"></span><span>Shipped</span></div>
-            <div class="step" data-step="Out for Delivery"><span class="step-dot"></span><span>Out for Delivery</span></div>
-            <div class="step" data-step="Delivered"><span class="step-dot"></span><span>Delivered</span></div>
-          </div>
+        <div class="update-carrier"><p class="card-label">Carrier</p><p id="companyName" class="update-carrier-name"></p></div>
+      </div>
+
+      <!-- Progress -->
+      <article class="card progress-card">
+        <div class="progress-header">
+          <p class="card-label">Shipment Progress</p>
+        </div>
+        <div class="progress-bar-track">
+          <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+        <div class="progress-steps">
+          <div class="step" data-step="Ordered"><span class="step-dot"></span><span class="step-label">Ordered</span></div>
+          <div class="step" data-step="Confirmed"><span class="step-dot"></span><span class="step-label">Confirmed</span></div>
+          <div class="step" data-step="Shipped"><span class="step-dot"></span><span class="step-label">Shipped</span></div>
+          <div class="step" data-step="Out for Delivery"><span class="step-dot"></span><span class="step-label">Out for Delivery</span></div>
+          <div class="step" data-step="Delivered"><span class="step-dot"></span><span class="step-label">Delivered</span></div>
         </div>
       </article>
 
+      <!-- Timeline -->
       <article class="card timeline-card">
-        <div class="card-header">
-          <div>
-            <p class="section-label">Activity Log</p>
-            <h2>Full tracking history</h2>
-          </div>
-        </div>
+        <p class="card-label" style="margin-bottom:20px">Activity Log</p>
         <ul id="timelineList" class="timeline-list"></ul>
       </article>
+
     </section>
+
+    <footer class="footer">
+      <p>© 2025 TrackSuite. All rights reserved.</p>
+    </footer>
+
   </div>
 
   <script src="script.js"></script>

@@ -45,6 +45,12 @@ const BASE_TRACKING_DATA = {
   }
 };
 
+const trackForm = document.getElementById('track-form');
+const trackingNumberInput = document.getElementById('trackingNumber');
+const statusMessage = document.getElementById('statusMessage');
+const progressBar = document.getElementById('progressBar');
+const stepElements = Array.from(document.querySelectorAll('.step'));
+const shippedAddressField = document.getElementById('shippedAddress');
 const statusBadge = document.getElementById('statusBadge');
 const displayTracking = document.getElementById('displayTracking');
 const deliveryDate = document.getElementById('deliveryDate');
@@ -54,12 +60,6 @@ const packageLocation = document.getElementById('packageLocation');
 const latestUpdate = document.getElementById('latestUpdate');
 const timelineList = document.getElementById('timelineList');
 const resultsSection = document.getElementById('resultsSection');
-const trackForm = document.getElementById('track-form');
-const trackingNumberInput = document.getElementById('trackingNumber');
-const statusMessage = document.getElementById('statusMessage');
-const progressBar = document.getElementById('progressBar');
-const stepElements = Array.from(document.querySelectorAll('.step'));
-const shippedAddressField = document.getElementById('shippedAddress');
 
 const statusStyles = {
   'Awaiting Approval': { background: '#e74c3c', text: '#ffffff' },
