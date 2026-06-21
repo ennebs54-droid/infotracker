@@ -213,14 +213,26 @@ function clearError() {
 }
 
 // Initialize when document is ready
+const safeLucideReplace = () => {
+  try {
+    if (window.lucide && typeof window.lucide.replace === 'function') {
+      window.lucide.replace();
+    }
+  } catch (e) {
+    // Avoid breaking tracking when lucide fails to load
+    console.warn('lucide.replace() failed:', e);
+  }
+};
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initializeDOM();
-    trackingNumberInput.value = '';
-    lucide.replace();
+    if (trackingNumberInput) trackingNumberInput.value = '';
+    safeLucideReplace();
   });
 } else {
   initializeDOM();
-  trackingNumberInput.value = '';
-  lucide.replace();
+  if (trackingNumberInput) trackingNumberInput.value = '';
+  safeLucideReplace();
 }
+
