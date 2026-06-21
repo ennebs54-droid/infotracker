@@ -2,8 +2,8 @@
 const BASE_TRACKING_DATA = {
   GECG1472: {
     status: 'Awaiting Custom Fee Approval',
-    courier: 'Realt Courier',
-    company: 'Realt Courier',
+    courier: 'Global Express',
+    company: 'Global Express',
     estimatedDelivery: 'July 4, 2026',
     latestUpdate: 'Package is awaiting custom fee approval before it can be processed and released.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
@@ -85,6 +85,7 @@ const resultsSection = document.getElementById('resultsSection');
 
 const statusStyles = {
   'Awaiting Approval': { background: '#e74c3c', text: '#ffffff' },
+  'Awaiting Custom Fee Approval': { background: '#e74c3c', text: '#ffffff' },
   'Delivered': { background: '#2f9c69', text: '#ffffff' },
   'In Transit': { background: '#f39c12', text: '#ffffff' },
   'Processing': { background: '#5b5fd3', text: '#ffffff' },
