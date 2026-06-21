@@ -85,6 +85,38 @@ function initializeDOM() {
   latestUpdate = document.getElementById('latestUpdate');
   timelineList = document.getElementById('timelineList');
   resultsSection = document.getElementById('resultsSection');
+  
+  if (!trackForm) {
+    console.error('Form not found');
+    return;
+  }
+  
+  trackForm.addEventListener('submit', handleFormSubmit);
+  trackingNumberInput.addEventListener('input', () => {
+    if (statusMessage.textContent) clearError();
+  });
+}
+
+async function handleFormSubmit(event) {
+  event.preventDefault();
+  clearError();
+  const cleaned = trackingNumberInput.value.trim().toUpperCase();
+  
+  if (!cleaned) {
+    showError('Please enter a tracking number');
+    return;
+  }
+  
+  const allData = await getAllTrackingData();
+  
+  if (!allData[cleaned]) {
+    showError('Invalid Tracking Number');
+    return;
+  }
+  
+  const trackData = allData[cleaned];
+  const useIp = trackData.useIpLocation || cleaned === 'TEAFD5372';
+  showResult(trackData, cleaned, useIp);
 }
 
 const statusStyles = {
@@ -180,27 +212,15 @@ function clearError() {
   statusMessage.textContent = '';
 }
 
-window.addEventListener('load', () => {
+// Initialize when document is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeDOM();
+    trackingNumberInput.value = '';
+    lucide.replace();
+  });
+} else {
   initializeDOM();
-  trackForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    clearError();
-    const cleaned = trackingNumberInput.value.trim().toUpperCase();
-    const allData = await getAllTrackingData();
-    
-    if (!allData[cleaned]) {
-      showError('Invalid Tracking Number');
-      return;
-    }
-    const trackData = allData[cleaned];
-    const useIp = trackData.useIpLocation || cleaned === 'TEAFD5372';
-    showResult(trackData, cleaned, useIp);
-  });
-  
-  trackingNumberInput.addEventListener('input', () => {
-    if (statusMessage.textContent) clearError();
-  });
-  
   trackingNumberInput.value = '';
   lucide.replace();
-});
+}
