@@ -67,21 +67,25 @@ function getAllTrackingData() {
   });
 }
 
-const trackForm = document.getElementById('track-form');
-const trackingNumberInput = document.getElementById('trackingNumber');
-const statusMessage = document.getElementById('statusMessage');
-const progressBar = document.getElementById('progressBar');
-const stepElements = Array.from(document.querySelectorAll('.step'));
-const shippedAddressField = document.getElementById('shippedAddress');
-const statusBadge = document.getElementById('statusBadge');
-const displayTracking = document.getElementById('displayTracking');
-const deliveryDate = document.getElementById('deliveryDate');
-const courierInfo = document.getElementById('courierInfo');
-const companyName = document.getElementById('companyName');
-const packageLocation = document.getElementById('packageLocation');
-const latestUpdate = document.getElementById('latestUpdate');
-const timelineList = document.getElementById('timelineList');
-const resultsSection = document.getElementById('resultsSection');
+let trackForm, trackingNumberInput, statusMessage, progressBar, stepElements, shippedAddressField, statusBadge, displayTracking, deliveryDate, courierInfo, companyName, packageLocation, latestUpdate, timelineList, resultsSection;
+
+function initializeDOM() {
+  trackForm = document.getElementById('track-form');
+  trackingNumberInput = document.getElementById('trackingNumber');
+  statusMessage = document.getElementById('statusMessage');
+  progressBar = document.getElementById('progressBar');
+  stepElements = Array.from(document.querySelectorAll('.step'));
+  shippedAddressField = document.getElementById('shippedAddress');
+  statusBadge = document.getElementById('statusBadge');
+  displayTracking = document.getElementById('displayTracking');
+  deliveryDate = document.getElementById('deliveryDate');
+  courierInfo = document.getElementById('courierInfo');
+  companyName = document.getElementById('companyName');
+  packageLocation = document.getElementById('packageLocation');
+  latestUpdate = document.getElementById('latestUpdate');
+  timelineList = document.getElementById('timelineList');
+  resultsSection = document.getElementById('resultsSection');
+}
 
 const statusStyles = {
   'Awaiting Approval': { background: '#e74c3c', text: '#ffffff' },
@@ -176,26 +180,27 @@ function clearError() {
   statusMessage.textContent = '';
 }
 
-trackForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  clearError();
-  const cleaned = trackingNumberInput.value.trim().toUpperCase();
-  const allData = await getAllTrackingData();
-  
-  if (!allData[cleaned]) {
-    showError('Invalid Tracking Number');
-    return;
-  }
-  const trackData = allData[cleaned];
-  const useIp = trackData.useIpLocation || cleaned === 'TEAFD5372';
-  showResult(trackData, cleaned, useIp);
-});
-
-trackingNumberInput.addEventListener('input', () => {
-  if (statusMessage.textContent) clearError();
-});
-
 window.addEventListener('load', () => {
+  initializeDOM();
+  trackForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    clearError();
+    const cleaned = trackingNumberInput.value.trim().toUpperCase();
+    const allData = await getAllTrackingData();
+    
+    if (!allData[cleaned]) {
+      showError('Invalid Tracking Number');
+      return;
+    }
+    const trackData = allData[cleaned];
+    const useIp = trackData.useIpLocation || cleaned === 'TEAFD5372';
+    showResult(trackData, cleaned, useIp);
+  });
+  
+  trackingNumberInput.addEventListener('input', () => {
+    if (statusMessage.textContent) clearError();
+  });
+  
   trackingNumberInput.value = '';
   lucide.replace();
 });
