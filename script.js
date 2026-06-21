@@ -45,7 +45,16 @@ const BASE_TRACKING_DATA = {
   }
 };
 
-const trackForm = document.getElementById('track-form');
+const ADMIN_STORAGE_KEY = 'tracksuite_admin_data';
+
+function getAllTrackingData() {
+  const base = { ...BASE_TRACKING_DATA };
+  try {
+    const admin = JSON.parse(localStorage.getItem(ADMIN_STORAGE_KEY) || '{}');
+    return { ...base, ...admin };
+  } catch { return base; }
+}
+
 const trackingNumberInput = document.getElementById('trackingNumber');
 const statusMessage = document.getElementById('statusMessage');
 const progressBar = document.getElementById('progressBar');
@@ -107,7 +116,7 @@ function renderTimeline(entries) {
   });
 }
 
-function showResult(data, trackingKey) {
+function showResult(data, trackingKey, useIp = false) {
   displayTracking.textContent = trackingKey;
   deliveryDate.textContent = data.estimatedDelivery;
   courierInfo.textContent = data.courier;
@@ -124,7 +133,7 @@ function showResult(data, trackingKey) {
     .then(r => r.json())
     .then(geo => {
       const country = geo.country_name || 'Unknown';
-      if (trackingKey === 'TEAFD5372') {
+      if (useIp) {
         const future = new Date();
         future.setDate(future.getDate() + 2);
         deliveryDate.textContent = future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -134,12 +143,12 @@ function showResult(data, trackingKey) {
         const future = new Date();
         future.setDate(future.getDate() + 6);
         deliveryDate.textContent = future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        packageLocation.textContent = 'Manchester, UK';
+        packageLocation.textContent = data.location || 'Manchester, UK';
         latestUpdate.textContent = data.latestUpdate;
       }
     })
     .catch(() => {
-      packageLocation.textContent = trackingKey === 'TEAFD5372' ? 'Unknown' : 'Manchester, UK';
+      packageLocation.textContent = useIp ? 'Unknown' : (data.location || 'Manchester, UK');
       latestUpdate.textContent = data.latestUpdate;
     });
 }
@@ -157,15 +166,18 @@ trackForm.addEventListener('submit', (event) => {
   event.preventDefault();
   clearError();
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
+  const allData = getAllTrackingData();
   if (DISABLED_UNTIL[cleaned] && new Date() < DISABLED_UNTIL[cleaned]) {
     showError('This tracking number is temporarily unavailable. Please try again later.');
     return;
   }
-  if (!VALID_TRACKING_NUMBERS.includes(cleaned)) {
+  if (!allData[cleaned]) {
     showError('Invalid Tracking Number');
     return;
   }
-  showResult(BASE_TRACKING_DATA[cleaned], cleaned);
+  const trackData = allData[cleaned];
+  const useIp = trackData.useIpLocation || cleaned === 'TEAFD5372';
+  showResult(trackData, cleaned, useIp);
 });
 
 trackingNumberInput.addEventListener('input', () => {
