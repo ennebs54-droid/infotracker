@@ -55,6 +55,7 @@ function getAllTrackingData() {
   } catch { return base; }
 }
 
+const trackForm = document.getElementById('track-form');
 const trackingNumberInput = document.getElementById('trackingNumber');
 const statusMessage = document.getElementById('statusMessage');
 const progressBar = document.getElementById('progressBar');
