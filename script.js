@@ -1,5 +1,20 @@
 // Base demo tracking data (preloaded in Firebase on first setup)
 const BASE_TRACKING_DATA = {
+  GECG1472: {
+    status: 'Awaiting Custom Fee Approval',
+    courier: 'Realt Courier',
+    company: 'Realt Courier',
+    estimatedDelivery: 'July 4, 2026',
+    latestUpdate: 'Package is awaiting custom fee approval before it can be processed and released.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timeline: [
+      { time: 'Today, 9:15 AM', event: 'Awaiting Custom Fee Approval', note: 'Package is pending custom fee approval before it can be processed.' },
+      { time: 'Today, 6:00 AM', event: 'Arrived at Customs', note: 'Package has arrived and is awaiting customs clearance.' },
+      { time: 'Yesterday, 11:30 PM', event: 'In Transit', note: 'Package departed from Manchester, UK facility.' }
+    ],
+    originAddress: 'Manchester, UK',
+    location: 'Manchester, UK'
+  },
   TRKBU372: {
     status: 'In Transit',
     courier: 'Global Express',
