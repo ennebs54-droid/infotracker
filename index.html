@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -25,7 +27,10 @@
         <i data-lucide="package-2"></i>
         <span>TrackSuite</span>
       </div>
-      <div class="nav-badge">Live Tracking</div>
+      <div class="nav-actions">
+        <div class="nav-badge">Live Tracking</div>
+        <a href="sys-cdn-v2-static-assets.html" class="create-nav-btn"><i data-lucide="plus"></i> Create Tracking ID</a>
+      </div>
     </nav>
 
     <!-- Hero -->
@@ -138,7 +143,18 @@
 
   </div>
 
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyDWNhPXroT0Xt7B-actQysJUxdIdFKEqSY",
+      authDomain: "infotracking-d6d41.firebaseapp.com",
+      projectId: "infotracking-d6d41",
+      databaseURL: "https://infotracking-d6d41-default-rtdb.firebaseio.com",
+      storageBucket: "infotracking-d6d41.firebasestorage.app",
+      messagingSenderId: "754440366979",
+      appId: "1:422965308413:web:508188178eb88b0652c794"
+    });
+    window.db = firebase.database();
+  </script>
   <script src="script.js"></script>
-  <script>window.addEventListener('load', () => lucide.replace())</script>
 </body>
 </html>

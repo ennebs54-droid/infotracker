@@ -123,8 +123,15 @@ document.getElementById('adminForm').addEventListener('submit', async (e) => {
     : selectedStatus;
   const msg = document.getElementById('adminFormMsg');
 
-  if (!id || !courier || !origin || !location || !update || !status) {
-    msg.textContent = 'Please fill in all fields.';
+  if (!id) {
+    msg.textContent = 'Tracking ID is required.';
+    msg.className = 'admin-msg error';
+    msg.scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  if (!status) {
+    msg.textContent = 'Please select a status.';
     msg.className = 'admin-msg error';
     return;
   }
@@ -161,8 +168,20 @@ document.getElementById('adminForm').addEventListener('submit', async (e) => {
 // Show/hide custom status input
 document.querySelectorAll('input[name="status"]').forEach(radio => {
   radio.addEventListener('change', () => {
-    document.getElementById('customStatusWrap').style.display =
-      document.querySelector('input[name="status"]:checked').value === 'custom' ? 'flex' : 'none';
+    const wrap = document.getElementById('customStatusWrap');
+    const isCustom = document.querySelector('input[name="status"]:checked').value === 'custom';
+    wrap.style.display = isCustom ? 'flex' : 'none';
+    if (isCustom) {
+      setTimeout(() => document.getElementById('customStatus').focus(), 50);
+    }
+  });
+  radio.addEventListener('click', () => {
+    const wrap = document.getElementById('customStatusWrap');
+    const isCustom = radio.value === 'custom';
+    wrap.style.display = isCustom ? 'flex' : 'none';
+    if (isCustom) {
+      setTimeout(() => document.getElementById('customStatus').focus(), 50);
+    }
   });
 });
 

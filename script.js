@@ -1,6 +1,4 @@
-const VALID_TRACKING_NUMBERS = ['DGF26534', 'TEAFD5372'];
-const DISABLED_UNTIL = { TRKBU372: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) };
-
+// Base demo tracking data (preloaded in Firebase on first setup)
 const BASE_TRACKING_DATA = {
   TRKBU372: {
     status: 'In Transit',
@@ -45,14 +43,13 @@ const BASE_TRACKING_DATA = {
   }
 };
 
-const ADMIN_STORAGE_KEY = 'tracksuite_admin_data';
-
 function getAllTrackingData() {
-  const base = { ...BASE_TRACKING_DATA };
-  try {
-    const admin = JSON.parse(localStorage.getItem(ADMIN_STORAGE_KEY) || '{}');
-    return { ...base, ...admin };
-  } catch { return base; }
+  return new Promise((resolve) => {
+    if (!window.db) { resolve(BASE_TRACKING_DATA); return; }
+    window.db.ref('tracking').once('value', (snapshot) => {
+      resolve({ ...BASE_TRACKING_DATA, ...(snapshot.val() || {}) });
+    }).catch(() => resolve(BASE_TRACKING_DATA));
+  });
 }
 
 const trackForm = document.getElementById('track-form');
@@ -163,15 +160,12 @@ function clearError() {
   statusMessage.textContent = '';
 }
 
-trackForm.addEventListener('submit', (event) => {
+trackForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   clearError();
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
-  const allData = getAllTrackingData();
-  if (DISABLED_UNTIL[cleaned] && new Date() < DISABLED_UNTIL[cleaned]) {
-    showError('This tracking number is temporarily unavailable. Please try again later.');
-    return;
-  }
+  const allData = await getAllTrackingData();
+  
   if (!allData[cleaned]) {
     showError('Invalid Tracking Number');
     return;
