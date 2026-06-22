@@ -18,16 +18,16 @@ const BASE_TRACKING_DATA = {
   },
   GDY234923: {
     status: 'Awaiting Custom Approval',
-    courier: 'Custom Logistics',
-    company: 'Custom Handler',
-    location: 'Pending Location',
+    courier: 'Global Express',
+    company: 'Fed Ex',
+    location: 'Manchester,UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered'],
     timeline: [
       { time: 'Today, 12:00 PM', event: 'Custom Review Initiated', note: 'Shipment requires custom approval. Awaiting review.' }
     ],
-    originAddress: 'Custom Shipment'
+    originAddress: 'Manchester,UK'
   }
 };
 
