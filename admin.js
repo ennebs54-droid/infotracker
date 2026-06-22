@@ -7,6 +7,7 @@ const statusColors = {
   'Awaiting Approval':{ color: '#4f8ef7', bg: 'rgba(79,142,247,0.12)' },
   'Delivered':        { color: '#10d98a', bg: 'rgba(16,217,138,0.12)' },
   'Out for Delivery': { color: '#f5a623', bg: 'rgba(245,166,35,0.12)' },
+  'Awaiting Custom Approval': { color: '#9b59b6', bg: 'rgba(155,89,182,0.12)' },
 };
 
 // Firebase functions

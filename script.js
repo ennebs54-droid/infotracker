@@ -1,133 +1,76 @@
-// Base demo tracking data (preloaded in Firebase on first setup)
+const VALID_TRACKING_NUMBER = 'TRKBU372';
+
 const BASE_TRACKING_DATA = {
-  GECG1472: {
-    status: 'Awaiting Custom Fee Approval',
-    courier: 'Global Express',
-    company: 'Global Express',
-    estimatedDelivery: 'July 4, 2026',
-    latestUpdate: 'Package is awaiting custom fee approval before it can be processed and released.',
-    progress: ['Ordered', 'Confirmed', 'Shipped'],
-    timeline: [
-      { time: 'Today, 9:15 AM', event: 'Awaiting Custom Fee Approval', note: 'Package is pending custom fee approval before it can be processed.' },
-      { time: 'Today, 6:00 AM', event: 'Arrived at Customs', note: 'Package has arrived and is awaiting customs clearance.' },
-      { time: 'Yesterday, 11:30 PM', event: 'In Transit', note: 'Package departed from Manchester, UK facility.' }
-    ],
-    originAddress: 'Manchester, UK',
-    location: 'Manchester, UK'
-  },
   TRKBU372: {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'FedEx Logistics',
+    location: 'Manchester, UK',
     estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package departed sort facility and is en route to destination country.',
+    latestUpdate: 'Package departed sort facility and is en route to distribution center.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timeline: [
-      { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub.' },
+      { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
       { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
       { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: 'Manchester, UK'
+    originAddress: '48 Willowbrook Lane, Manchester, UK'
   },
-  DGF26534: {
-    status: 'In Transit',
-    courier: 'Global Express',
-    company: 'FedEx Logistics',
-    estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package departed sort facility and is en route to destination country.',
-    progress: ['Ordered', 'Confirmed', 'Shipped'],
+  GDY234923: {
+    status: 'Awaiting Custom Approval',
+    courier: 'Custom Logistics',
+    company: 'Custom Handler',
+    location: 'Pending Location',
+    estimatedDelivery: 'Pending Approval',
+    latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
+    progress: ['Ordered'],
     timeline: [
-      { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub.' },
-      { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
-      { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+      { time: 'Today, 12:00 PM', event: 'Custom Review Initiated', note: 'Shipment requires custom approval. Awaiting review.' }
     ],
-    originAddress: 'Manchester, UK'
-  },
-  TEAFD5372: {
-    status: 'Awaiting Approval',
-    courier: 'Global Express',
-    company: 'FedEx Logistics',
-    estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package is awaiting approval before processing in destination country.',
-    progress: ['Ordered', 'Confirmed'],
-    timeline: [
-      { time: 'Today, 10:24 AM', event: 'Awaiting Approval', note: 'Package is pending approval before it can be processed.' },
-      { time: 'Yesterday, 8:00 AM', event: 'Order Confirmed', note: 'Order has been confirmed and is awaiting approval.' }
-    ],
-    originAddress: 'Manchester, UK'
+    originAddress: 'Custom Shipment'
   }
 };
 
-function getAllTrackingData() {
-  return new Promise((resolve) => {
-    if (!window.db) { resolve(BASE_TRACKING_DATA); return; }
-    window.db.ref('tracking').once('value', (snapshot) => {
-      resolve({ ...BASE_TRACKING_DATA, ...(snapshot.val() || {}) });
-    }).catch(() => resolve(BASE_TRACKING_DATA));
-  });
-}
+const STORAGE_KEY = 'tracking-dashboard-overrides';
 
-let trackForm, trackingNumberInput, statusMessage, progressBar, stepElements, shippedAddressField, statusBadge, displayTracking, deliveryDate, courierInfo, companyName, packageLocation, latestUpdate, timelineList, resultsSection;
-
-function initializeDOM() {
-  trackForm = document.getElementById('track-form');
-  trackingNumberInput = document.getElementById('trackingNumber');
-  statusMessage = document.getElementById('statusMessage');
-  progressBar = document.getElementById('progressBar');
-  stepElements = Array.from(document.querySelectorAll('.step'));
-  shippedAddressField = document.getElementById('shippedAddress');
-  statusBadge = document.getElementById('statusBadge');
-  displayTracking = document.getElementById('displayTracking');
-  deliveryDate = document.getElementById('deliveryDate');
-  courierInfo = document.getElementById('courierInfo');
-  companyName = document.getElementById('companyName');
-  packageLocation = document.getElementById('packageLocation');
-  latestUpdate = document.getElementById('latestUpdate');
-  timelineList = document.getElementById('timelineList');
-  resultsSection = document.getElementById('resultsSection');
-  
-  if (!trackForm) {
-    console.error('Form not found');
-    return;
-  }
-  
-  trackForm.addEventListener('submit', handleFormSubmit);
-  trackingNumberInput.addEventListener('input', () => {
-    if (statusMessage.textContent) clearError();
-  });
-}
-
-async function handleFormSubmit(event) {
-  event.preventDefault();
-  clearError();
-  const cleaned = trackingNumberInput.value.trim().toUpperCase();
-  
-  if (!cleaned) {
-    showError('Please enter a tracking number');
-    return;
-  }
-  
-  const allData = await getAllTrackingData();
-  
-  if (!allData[cleaned]) {
-    showError('Invalid Tracking Number');
-    return;
-  }
-  
-  const trackData = allData[cleaned];
-  const useIp = trackData.useIpLocation || cleaned === 'TEAFD5372';
-  showResult(trackData, cleaned, useIp);
-}
+const statusBadge = document.getElementById('statusBadge');
+const displayTracking = document.getElementById('displayTracking');
+const deliveryDate = document.getElementById('deliveryDate');
+const courierInfo = document.getElementById('courierInfo');
+const companyName = document.getElementById('companyName');
+const packageLocation = document.getElementById('packageLocation');
+const latestUpdate = document.getElementById('latestUpdate');
+const timelineList = document.getElementById('timelineList');
+const resultsSection = document.getElementById('resultsSection');
+const trackForm = document.getElementById('track-form');
+const trackingNumberInput = document.getElementById('trackingNumber');
+const statusMessage = document.getElementById('statusMessage');
+const progressBar = document.getElementById('progressBar');
+const stepElements = Array.from(document.querySelectorAll('.step'));
+const shippedAddressField = document.getElementById('shippedAddress');
 
 const statusStyles = {
-  'Awaiting Approval': { background: '#e74c3c', text: '#ffffff' },
-  'Awaiting Custom Fee Approval': { background: '#e74c3c', text: '#ffffff' },
-  'Delivered': { background: '#2f9c69', text: '#ffffff' },
+  Delivered: { background: '#2f9c69', text: '#ffffff' },
   'In Transit': { background: '#f39c12', text: '#ffffff' },
-  'Processing': { background: '#5b5fd3', text: '#ffffff' },
-  'Confirmed': { background: '#3498db', text: '#ffffff' },
-  'Out for Delivery': { background: '#f39c12', text: '#ffffff' }
+  Processing: { background: '#5b5fd3', text: '#ffffff' },
+  Confirmed: { background: '#3498db', text: '#ffffff' },
+  'Out for Delivery': { background: '#f39c12', text: '#ffffff' },
+  'Awaiting Custom Approval': { background: '#9b59b6', text: '#ffffff' }
 };
+
+function loadOverrides() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+function getTrackingData() {
+  // This is now handled by the server, but for fallback, we can keep base data
+  return BASE_TRACKING_DATA;
+}
 
 function setStatusBadge(status) {
   const style = statusStyles[status] || statusStyles['In Transit'];
@@ -142,12 +85,15 @@ function setProgress(progressSteps) {
   stepElements.forEach((stepEl, index) => {
     if (index < completed) {
       stepEl.classList.add('active');
+      stepEl.style.color = 'var(--text)';
     } else {
       stepEl.classList.remove('active');
+      stepEl.style.color = 'var(--muted)';
     }
-    stepEl.querySelector('.step-dot').style.background = index < completed ? '#2563eb' : '#e5e7eb';
+    stepEl.querySelector('.step-dot').style.background = index < completed ? '#1ab6ff' : 'rgba(27, 35, 48, 0.12)';
   });
-  progressBar.style.width = `${Math.min((completed / total) * 100, 100)}%`;
+  const percent = Math.min((completed / total) * 100, 100);
+  progressBar.style.width = `${percent}%`;
 }
 
 function renderTimeline(entries) {
@@ -166,41 +112,18 @@ function renderTimeline(entries) {
   });
 }
 
-function showResult(data, trackingKey, useIp = false) {
+function showResult(data, trackingKey) {
   displayTracking.textContent = trackingKey;
   deliveryDate.textContent = data.estimatedDelivery;
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
-  shippedAddressField.innerHTML = data.originAddress;
-  packageLocation.textContent = 'Loading...';
+  packageLocation.textContent = data.location;
+  shippedAddressField.innerHTML = (data.originAddress || '48 Willowbrook Lane<br>Manchester,<br>UK').replace(/, /g, '<br>');
   latestUpdate.textContent = data.latestUpdate;
   setStatusBadge(data.status);
   setProgress(data.progress);
   renderTimeline(data.timeline);
   resultsSection.classList.remove('hidden');
-
-  fetch('https://ipapi.co/json/')
-    .then(r => r.json())
-    .then(geo => {
-      const country = geo.country_name || 'Unknown';
-      if (useIp) {
-        const future = new Date();
-        future.setDate(future.getDate() + 2);
-        deliveryDate.textContent = future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        packageLocation.textContent = country;
-        latestUpdate.textContent = data.latestUpdate.replace('destination country', country);
-      } else {
-        const future = new Date();
-        future.setDate(future.getDate() + 6);
-        deliveryDate.textContent = future.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        packageLocation.textContent = data.location || 'Manchester, UK';
-        latestUpdate.textContent = data.latestUpdate;
-      }
-    })
-    .catch(() => {
-      packageLocation.textContent = useIp ? 'Unknown' : (data.location || 'Manchester, UK');
-      latestUpdate.textContent = data.latestUpdate;
-    });
 }
 
 function showError(message) {
@@ -212,27 +135,20 @@ function clearError() {
   statusMessage.textContent = '';
 }
 
-// Initialize when document is ready
-const safeLucideReplace = () => {
-  try {
-    if (window.lucide && typeof window.lucide.replace === 'function') {
-      window.lucide.replace();
-    }
-  } catch (e) {
-    // Avoid breaking tracking when lucide fails to load
-    console.warn('lucide.replace() failed:', e);
+trackForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  clearError();
+  const cleaned = trackingNumberInput.value.trim().toUpperCase();
+  if (!BASE_TRACKING_DATA[cleaned]) {
+    showError('Invalid Tracking Number');
+    return;
   }
-};
+  clearError();
+  showResult(BASE_TRACKING_DATA[cleaned], cleaned);
+});
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    initializeDOM();
-    if (trackingNumberInput) trackingNumberInput.value = '';
-    safeLucideReplace();
-  });
-} else {
-  initializeDOM();
-  if (trackingNumberInput) trackingNumberInput.value = '';
-  safeLucideReplace();
-}
-
+trackingNumberInput.addEventListener('input', () => {
+  if (statusMessage.textContent) {
+    clearError();
+  }
+});
