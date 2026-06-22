@@ -29,16 +29,16 @@ const TRACKING_DATA = {
   },
   MAN456789: {
     status: 'Awaiting Custom Approval',
-    courier: 'DPD UK',
-    company: 'FedEx',
-    location: 'Manchester Distribution Centre, Manchester, UK',
+    courier: 'Global Express',
+    company: 'Global Express',
+    location: 'Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
     timeline: [
       { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
     ],
-    originAddress: '42 Deansgate, Manchester, UK'
+    originAddress: '48 Willowbrook Lane, Manchester, UK'
   }
 };
 
