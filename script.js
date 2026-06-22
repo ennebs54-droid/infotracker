@@ -3,9 +3,9 @@ const BASE_TRACKING_DATA = {
   GDY234923: {
     status: 'Awaiting Custom Approval',
     courier: 'DPD UK',
-    company: 'Royal Mail',
+    company: 'FedEx',
     location: 'Manchester Distribution Centre, Manchester, UK',
-    estimatedDelivery: 'June 28, 2026',
+    estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
     timeline: [
@@ -46,9 +46,9 @@ function initializeSampleDataIfNeeded() {
     'GDY234923': {
       status: 'Awaiting Custom Approval',
       courier: 'DPD UK',
-      company: 'Royal Mail',
+      company: 'FedEx',
       location: 'Manchester Distribution Centre, Manchester, UK',
-      estimatedDelivery: 'June 28, 2026',
+      estimatedDelivery: 'Pending Approval',
       latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
       originAddress: '42 Deansgate, Manchester, UK',
       progress: ['Ordered', 'Confirmed'],
