@@ -34,6 +34,54 @@ const BASE_TRACKING_DATA = {
 
 const STORAGE_KEY = 'tracking-data';
 
+// Auto-initialize sample data if localStorage is empty
+function initializeSampleDataIfNeeded() {
+  // Always clear old tracking data and reinitialize to ensure fresh state
+  const keys = Object.keys(localStorage);
+  keys.forEach(key => {
+    if (key.startsWith('tracking-data-')) {
+      localStorage.removeItem(key);
+    }
+  });
+
+  const sampleData = {
+    'GDY234923': {
+      status: 'In Transit',
+      courier: 'Global Express',
+      company: 'Fed Ex',
+      location: 'Manchester, UK',
+      estimatedDelivery: 'June 28, 2026',
+      latestUpdate: 'Package is in transit to final destination.',
+      originAddress: 'Manchester, UK',
+      progress: ['Ordered', 'Confirmed', 'Shipped', 'In Transit'],
+      timeline: [
+        { time: 'Today, 2:30 PM', event: 'In Transit', note: 'Package is in transit to final destination.' },
+        { time: 'Yesterday, 9:15 AM', event: 'Shipped', note: 'Package has left the origin facility.' },
+        { time: '2 days ago, 3:45 PM', event: 'Confirmed', note: 'Shipment confirmed and ready for dispatch.' }
+      ]
+    },
+    'TRKBU372': {
+      status: 'In Transit',
+      courier: 'Global Express',
+      company: 'FedEx Logistics',
+      location: 'Manchester, UK',
+      estimatedDelivery: 'May 14, 2026',
+      latestUpdate: 'Package departed sort facility and is en route to distribution center.',
+      originAddress: '48 Willowbrook Lane, Manchester, UK',
+      progress: ['Ordered', 'Confirmed', 'Shipped'],
+      timeline: [
+        { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
+        { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
+        { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+      ]
+    }
+  };
+  
+  Object.entries(sampleData).forEach(([id, data]) => {
+    localStorage.setItem(`${STORAGE_KEY}-${id}`, JSON.stringify(data));
+  });
+}
+
 // Calculate delivery date as 6 days from now
 function getDeliveryDate() {
   const date = new Date();
@@ -93,11 +141,6 @@ function loadOverrides() {
   } catch {
     return {};
   }
-}
-
-function getTrackingData() {
-  // This is now handled by the server, but for fallback, we can keep base data
-  return BASE_TRACKING_DATA;
 }
 
 function setStatusBadge(status) {
@@ -188,3 +231,6 @@ trackingNumberInput.addEventListener('input', () => {
     clearError();
   }
 });
+
+// Initialize sample data on page load
+document.addEventListener('DOMContentLoaded', initializeSampleDataIfNeeded);
