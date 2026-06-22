@@ -50,31 +50,36 @@ html, body {
 .navbar-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 clamp(12px, 5vw, 24px);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: clamp(10px, 3vw, 20px);
 }
 
 .navbar-brand {
-  font-size: 24px;
+  font-size: clamp(18px, 5vw, 24px);
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.5px;
+  white-space: nowrap;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: clamp(12px, 3vw, 24px);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .status-indicator {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: clamp(6px, 2vw, 10px);
+  font-size: clamp(12px, 2.5vw, 14px);
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .status-dot {
@@ -94,12 +99,14 @@ html, body {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 10px 24px;
+  padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 24px);
   border-radius: 8px;
-  font-size: 14px;
+  font-size: clamp(12px, 2.5vw, 14px);
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  min-height: clamp(40px, 10vw, 44px);
+  white-space: nowrap;
 }
 
 .create-btn:hover {
@@ -112,7 +119,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
+  padding: clamp(40px, 10vw, 80px) clamp(16px, 5vw, 40px);
 }
 
 /* Hero Section */
@@ -127,17 +134,17 @@ html, body {
   background: rgba(79, 142, 247, 0.1);
   border: 1px solid var(--border);
   color: var(--accent);
-  padding: 8px 16px;
+  padding: clamp(6px, 2vw, 10px) clamp(12px, 3vw, 20px);
   border-radius: 24px;
-  font-size: 13px;
+  font-size: clamp(11px, 2.5vw, 14px);
   font-weight: 600;
-  margin-bottom: 32px;
+  margin-bottom: clamp(20px, 5vw, 40px);
 }
 
 .hero-title {
-  font-size: clamp(36px, 8vw, 72px);
+  font-size: clamp(24px, 7vw, 72px);
   font-weight: 800;
-  margin-bottom: 24px;
+  margin-bottom: clamp(16px, 4vw, 32px);
   line-height: 1.1;
   letter-spacing: -1px;
 }
@@ -147,9 +154,9 @@ html, body {
 }
 
 .hero-copy {
-  font-size: 16px;
+  font-size: clamp(13px, 3.5vw, 16px);
   color: var(--text-muted);
-  margin-bottom: 48px;
+  margin-bottom: clamp(32px, 8vw, 56px);
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -179,8 +186,8 @@ html, body {
   background: rgba(26, 35, 50, 0.6);
   border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px 20px;
-  gap: 12px;
+  padding: clamp(14px, 4vw, 20px);
+  gap: clamp(10px, 2vw, 16px);
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -201,9 +208,9 @@ html, body {
   border: none;
   outline: none;
   background: transparent;
-  font-size: 16px;
+  font-size: clamp(14px, 3.5vw, 16px);
   color: var(--text);
-  min-height: 24px;
+  min-height: clamp(24px, 6vw, 28px);
   font-family: inherit;
 }
 
@@ -217,12 +224,12 @@ html, body {
   color: white;
   border: none;
   border-radius: var(--radius);
-  padding: 18px 24px;
-  font-size: 16px;
+  padding: clamp(14px, 3vw, 18px) clamp(20px, 5vw, 24px);
+  font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
-  min-height: 56px;
+  min-height: clamp(44px, 10vw, 56px);
   font-family: inherit;
 }
 
@@ -247,20 +254,20 @@ html, body {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 0 clamp(12px, 5vw, 24px) clamp(40px, 10vw, 60px);
 }
 
 .cards-grid {
   display: grid;
-  gap: 20px;
-  margin-bottom: 24px;
+  gap: clamp(16px, 4vw, 24px);
+  margin-bottom: clamp(16px, 4vw, 24px);
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  padding: clamp(18px, 5vw, 28px);
   box-shadow: var(--shadow);
 }
 
@@ -274,15 +281,15 @@ html, body {
 
 .section-label {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: clamp(10px, 2vw, 12px);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  margin-bottom: clamp(6px, 1.5vw, 8px);
 }
 
 .card h2 {
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 22px);
   font-weight: 700;
   line-height: 1.3;
   color: var(--text);
@@ -311,14 +318,14 @@ html, body {
 
 .subtle {
   color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 4px;
+  font-size: clamp(12px, 2.5vw, 14px);
+  margin-bottom: clamp(3px, 1vw, 6px);
 }
 
 .strong {
   font-weight: 600;
   color: var(--text);
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
 }
 
 .address-text {
@@ -367,9 +374,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: clamp(6px, 1.5vw, 10px);
   text-align: center;
-  font-size: 12px;
+  font-size: clamp(10px, 2vw, 13px);
   color: var(--text-muted);
 }
 
@@ -443,114 +450,177 @@ html, body {
 }
 
 /* Mobile Optimizations */
-@media (max-width: 768px) {
-  .navbar-container {
-    padding: 0 16px;
+@media (max-width: 1024px) {
+  .navbar {
+    padding: clamp(12px, 3vw, 18px) 0;
   }
   
   .navbar-actions {
-    gap: 12px;
+    gap: clamp(8px, 2vw, 16px);
+  }
+  
+  .status-indicator {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: clamp(12px, 3vw, 16px) 0;
+  }
+  
+  .navbar-container {
+    padding: 0 clamp(12px, 4vw, 18px);
+  }
+  
+  .navbar-brand {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+  
+  .navbar-actions {
+    gap: clamp(8px, 2vw, 12px);
+  }
+  
+  .create-btn {
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px);
+    font-size: clamp(11px, 2vw, 13px);
+  }
+  
+  .hero-container {
+    padding: clamp(30px, 7vw, 50px) clamp(12px, 4vw, 20px);
+  }
+  
+  .hero-title {
+    font-size: clamp(22px, 6vw, 40px);
+  }
+  
+  .hero-copy {
+    font-size: clamp(13px, 3vw, 15px);
+    margin-bottom: clamp(24px, 6vw, 40px);
+  }
+  
+  .search-panel {
+    max-width: 100%;
+    padding: 0 clamp(8px, 2vw, 16px);
+  }
+  
+  .results-section {
+    padding: 0 clamp(12px, 4vw, 18px) clamp(30px, 7vw, 50px);
+  }
+  
+  .card {
+    padding: clamp(16px, 4vw, 22px);
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: clamp(12px, 3vw, 18px);
+  }
+  
+  .overview-detail,
+  .activity-meta {
+    grid-template-columns: 1fr;
+    gap: clamp(12px, 3vw, 16px);
+  }
+  
+  .progress-steps {
+    gap: clamp(3px, 1vw, 6px);
+  }
+  
+  .step {
+    font-size: clamp(10px, 1.8vw, 12px);
+  }
+  
+  .timeline-item {
+    padding: clamp(12px, 3vw, 16px);
+    gap: clamp(10px, 2vw, 14px);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: clamp(12px, 2vw, 14px) 0;
+  }
+  
+  .navbar-brand {
+    font-size: clamp(16px, 4vw, 18px);
+  }
+  
+  .navbar-container {
+    padding: 0 clamp(10px, 3vw, 14px);
+    gap: clamp(8px, 2vw, 10px);
+  }
+  
+  .navbar-actions {
+    gap: clamp(6px, 1.5vw, 10px);
+  }
+  
+  .create-btn {
+    padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 14px);
+    font-size: clamp(11px, 2vw, 12px);
+    min-height: clamp(36px, 8vw, 40px);
   }
   
   .status-indicator {
     display: none;
   }
   
-  .create-btn {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-  
   .hero-container {
-    padding: 40px 16px;
-  }
-  
-  .hero-title {
-    font-size: 36px;
-  }
-  
-  .hero-copy {
-    font-size: 15px;
-    margin-bottom: 32px;
-  }
-  
-  .search-panel {
-    max-width: 100%;
-  }
-  
-  .results-section {
-    padding: 0 16px 40px;
-  }
-  
-  .card {
-    padding: 20px;
-  }
-  
-  .card-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .overview-detail,
-  .activity-meta {
-    grid-template-columns: 1fr;
-  }
-  
-  .progress-steps {
-    gap: 4px;
-  }
-  
-  .step {
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    padding: 16px 0;
-  }
-  
-  .navbar-brand {
-    font-size: 20px;
-  }
-  
-  .hero-container {
-    padding: 32px 16px;
+    padding: clamp(24px, 6vw, 32px) clamp(12px, 4vw, 16px);
   }
   
   .hero-badge {
-    font-size: 12px;
-    margin-bottom: 24px;
+    margin-bottom: clamp(18px, 4vw, 24px);
   }
   
   .hero-title {
-    font-size: 28px;
+    font-size: clamp(20px, 5.5vw, 32px);
   }
   
   .hero-copy {
-    font-size: 14px;
+    font-size: clamp(13px, 2.8vw, 14px);
+    margin-bottom: clamp(24px, 5vw, 32px);
   }
   
   .input-group {
-    padding: 16px 16px;
+    padding: clamp(12px, 3vw, 16px);
+  }
+  
+  .input-group input {
+    font-size: clamp(14px, 3vw, 16px);
   }
   
   .primary-btn {
-    padding: 16px 20px;
-    min-height: 48px;
+    padding: clamp(12px, 2.5vw, 16px) clamp(16px, 4vw, 20px);
+    font-size: clamp(14px, 3vw, 15px);
+    min-height: clamp(40px, 9vw, 48px);
+  }
+  
+  .search-panel {
+    padding: 0;
+  }
+  
+  .results-section {
+    padding: 0 clamp(12px, 4vw, 16px) clamp(24px, 6vw, 40px);
   }
   
   .card {
-    padding: 16px;
+    padding: clamp(14px, 3.5vw, 18px);
   }
   
   .card h2 {
-    font-size: 18px;
+    font-size: clamp(16px, 3.5vw, 18px);
+  }
+  
+  .status-badge {
+    padding: clamp(4px, 1vw, 6px) clamp(8px, 2vw, 10px);
+    font-size: clamp(10px, 1.8vw, 11px);
   }
   
   .timeline-item {
-    padding: 12px;
-    gap: 12px;
+    padding: clamp(10px, 2.5vw, 14px);
+    gap: clamp(8px, 1.5vw, 12px);
   }
 }
 
