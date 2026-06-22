@@ -2,8 +2,8 @@
 const BASE_TRACKING_DATA = {
   GDY234923: {
     status: 'Awaiting Custom Approval',
-    courier: 'Global Express',
-    company: 'FedEx Logistics',
+    courier: 'Custom Logistics',
+    company: 'Custom Handler',
     location: 'Pending Location',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
@@ -45,8 +45,8 @@ function initializeSampleDataIfNeeded() {
   const sampleData = {
     'GDY234923': {
       status: 'Awaiting Custom Approval',
-      courier: 'Global Express',
-      company: 'FedEx Logistics',
+      courier: 'Custom Logistics',
+      company: 'Custom Handler',
       location: 'Pending Location',
       estimatedDelivery: 'Pending Approval',
       latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
