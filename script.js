@@ -3,8 +3,8 @@ const BASE_TRACKING_DATA = {
   GDY234923: {
     status: 'Awaiting Custom Approval',
     courier: 'Global Express',
-    company: 'FedEx',
-    location: 'Manchester, UK',
+    company: 'FedEx Logistics',
+    location: 'Pending Location',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
