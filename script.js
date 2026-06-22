@@ -1,19 +1,17 @@
 // Fallback data for tracking
 const BASE_TRACKING_DATA = {
   GDY234923: {
-    status: 'In Transit',
-    courier: 'Global Express',
-    company: 'Fed Ex',
-    location: 'Manchester, UK',
-    estimatedDelivery: 'June 28, 2026',
-    latestUpdate: 'Package is in transit to final destination.',
-    progress: ['Ordered', 'Confirmed', 'Shipped', 'In Transit'],
+    status: 'Awaiting Custom Approval',
+    courier: 'Custom Logistics',
+    company: 'Custom Handler',
+    location: 'Pending Location',
+    estimatedDelivery: 'Pending Approval',
+    latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
+    progress: ['Ordered', 'Confirmed'],
     timeline: [
-      { time: 'Today, 2:30 PM', event: 'In Transit', note: 'Package is in transit to final destination.' },
-      { time: 'Yesterday, 9:15 AM', event: 'Shipped', note: 'Package has left the origin facility.' },
-      { time: '2 days ago, 3:45 PM', event: 'Confirmed', note: 'Shipment confirmed and ready for dispatch.' }
+      { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
     ],
-    originAddress: 'Manchester, UK'
+    originAddress: 'Custom Shipment'
   },
   TRKBU372: {
     status: 'In Transit',
@@ -46,18 +44,16 @@ function initializeSampleDataIfNeeded() {
 
   const sampleData = {
     'GDY234923': {
-      status: 'In Transit',
-      courier: 'Global Express',
-      company: 'Fed Ex',
-      location: 'Manchester, UK',
-      estimatedDelivery: 'June 28, 2026',
-      latestUpdate: 'Package is in transit to final destination.',
-      originAddress: 'Manchester, UK',
-      progress: ['Ordered', 'Confirmed', 'Shipped', 'In Transit'],
+      status: 'Awaiting Custom Approval',
+      courier: 'Custom Logistics',
+      company: 'Custom Handler',
+      location: 'Pending Location',
+      estimatedDelivery: 'Pending Approval',
+      latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
+      originAddress: 'Custom Shipment',
+      progress: ['Ordered', 'Confirmed'],
       timeline: [
-        { time: 'Today, 2:30 PM', event: 'In Transit', note: 'Package is in transit to final destination.' },
-        { time: 'Yesterday, 9:15 AM', event: 'Shipped', note: 'Package has left the origin facility.' },
-        { time: '2 days ago, 3:45 PM', event: 'Confirmed', note: 'Shipment confirmed and ready for dispatch.' }
+        { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
       ]
     },
     'TRKBU372': {
