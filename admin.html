@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="admin.css" />
-  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.1/dist/lucide.min.js"></script>
 </head>
 <body>
 
@@ -188,6 +188,17 @@
   </div>
 
   <script src="admin.js"></script>
-  <script>window.addEventListener('load', () => lucide.replace())</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.replace();
+      }
+    });
+    window.addEventListener('load', () => {
+      if (window.lucide) {
+        lucide.replace();
+      }
+    });
+  </script>
 </body>
 </html>

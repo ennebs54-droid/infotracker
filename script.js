@@ -45,8 +45,8 @@ function initializeSampleDataIfNeeded() {
   const sampleData = {
     'GDY234923': {
       status: 'Awaiting Custom Approval',
-      courier: 'Custom Logistics',
-      company: 'Custom Handler',
+      courier: 'Global Express',
+      company: 'FedEx Logistics',
       location: 'Pending Location',
       estimatedDelivery: 'Pending Approval',
       latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
