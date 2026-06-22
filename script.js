@@ -27,6 +27,19 @@ const BASE_TRACKING_DATA = {
       { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
+  },
+  MAN456789: {
+    status: 'Awaiting Custom Approval',
+    courier: 'DPD UK',
+    company: 'FedEx',
+    location: 'Manchester Distribution Centre, Manchester, UK',
+    estimatedDelivery: 'Pending Approval',
+    latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
+    progress: ['Ordered', 'Confirmed'],
+    timeline: [
+      { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
+    ],
+    originAddress: '42 Deansgate, Manchester, UK'
   }
 };
 
@@ -69,6 +82,19 @@ function initializeSampleDataIfNeeded() {
         { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
         { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
         { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+      ]
+    },
+    'MAN456789': {
+      status: 'Awaiting Custom Approval',
+      courier: 'DPD UK',
+      company: 'FedEx',
+      location: 'Manchester Distribution Centre, Manchester, UK',
+      estimatedDelivery: 'Pending Approval',
+      latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
+      originAddress: '42 Deansgate, Manchester, UK',
+      progress: ['Ordered', 'Confirmed'],
+      timeline: [
+        { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
       ]
     }
   };
