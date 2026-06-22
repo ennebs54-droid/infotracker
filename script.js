@@ -1,6 +1,20 @@
-const VALID_TRACKING_NUMBER = 'TRKBU372';
-
+// Fallback data for tracking
 const BASE_TRACKING_DATA = {
+  GDY234923: {
+    status: 'In Transit',
+    courier: 'Global Express',
+    company: 'Fed Ex',
+    location: 'Manchester, UK',
+    estimatedDelivery: 'June 28, 2026',
+    latestUpdate: 'Package is in transit to final destination.',
+    progress: ['Ordered', 'Confirmed', 'Shipped', 'In Transit'],
+    timeline: [
+      { time: 'Today, 2:30 PM', event: 'In Transit', note: 'Package is in transit to final destination.' },
+      { time: 'Yesterday, 9:15 AM', event: 'Shipped', note: 'Package has left the origin facility.' },
+      { time: '2 days ago, 3:45 PM', event: 'Confirmed', note: 'Shipment confirmed and ready for dispatch.' }
+    ],
+    originAddress: 'Manchester, UK'
+  },
   TRKBU372: {
     status: 'In Transit',
     courier: 'Global Express',
@@ -15,23 +29,38 @@ const BASE_TRACKING_DATA = {
       { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
-  },
-  GDY234923: {
-    status: 'Awaiting Custom Approval',
-    courier: 'Global Express',
-    company: 'Fed Ex',
-    location: 'Manchester,UK',
-    estimatedDelivery: 'Pending Approval',
-    latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
-    progress: ['Ordered'],
-    timeline: [
-      { time: 'Today, 12:00 PM', event: 'Custom Review Initiated', note: 'Shipment requires custom approval. Awaiting review.' }
-    ],
-    originAddress: 'Manchester,UK'
   }
 };
 
-const STORAGE_KEY = 'tracking-dashboard-overrides';
+const STORAGE_KEY = 'tracking-data';
+
+// Calculate delivery date as 6 days from now
+function getDeliveryDate() {
+  const date = new Date();
+  date.setDate(date.getDate() + 6);
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+// Get tracking data from localStorage or fallback
+function getTrackingData(trackingNumber) {
+  // Check localStorage first
+  const stored = localStorage.getItem(`${STORAGE_KEY}-${trackingNumber}`);
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch (e) {
+      console.error('Error parsing stored data:', e);
+    }
+  }
+  
+  // Fall back to hardcoded data
+  return BASE_TRACKING_DATA[trackingNumber] || null;
+}
+
+// Save tracking data to localStorage
+function saveTrackingData(trackingNumber, data) {
+  localStorage.setItem(`${STORAGE_KEY}-${trackingNumber}`, JSON.stringify(data));
+}
 
 const statusBadge = document.getElementById('statusBadge');
 const displayTracking = document.getElementById('displayTracking');
@@ -54,8 +83,7 @@ const statusStyles = {
   'In Transit': { background: '#f39c12', text: '#ffffff' },
   Processing: { background: '#5b5fd3', text: '#ffffff' },
   Confirmed: { background: '#3498db', text: '#ffffff' },
-  'Out for Delivery': { background: '#f39c12', text: '#ffffff' },
-  'Awaiting Custom Approval': { background: '#9b59b6', text: '#ffffff' }
+  'Out for Delivery': { background: '#f39c12', text: '#ffffff' }
 };
 
 function loadOverrides() {
@@ -114,7 +142,7 @@ function renderTimeline(entries) {
 
 function showResult(data, trackingKey) {
   displayTracking.textContent = trackingKey;
-  deliveryDate.textContent = data.estimatedDelivery;
+  deliveryDate.textContent = getDeliveryDate();
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
   packageLocation.textContent = data.location;
@@ -139,12 +167,20 @@ trackForm.addEventListener('submit', (event) => {
   event.preventDefault();
   clearError();
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
-  if (!BASE_TRACKING_DATA[cleaned]) {
-    showError('Invalid Tracking Number');
+  
+  if (!cleaned) {
+    showError('Please enter a tracking number');
     return;
   }
-  clearError();
-  showResult(BASE_TRACKING_DATA[cleaned], cleaned);
+
+  // Try to get tracking data
+  const data = getTrackingData(cleaned);
+  
+  if (data) {
+    showResult(data, cleaned);
+  } else {
+    showError('Tracking number not found');
+  }
 });
 
 trackingNumberInput.addEventListener('input', () => {

@@ -10,9 +10,6 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="admin.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 </head>
 <body>
 
@@ -190,20 +187,6 @@
 
   </div>
 
-  <script>
-    // Initialize Firebase - REPLACE WITH YOUR CONFIG FROM FIREBASE CONSOLE
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "your-project.firebaseapp.com",
-      projectId: "your-project",
-      databaseURL: "https://your-project.firebaseio.com",
-      storageBucket: "your-project.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-    firebase.initializeApp(firebaseConfig);
-    window.db = firebase.database();
-  </script>
   <script src="admin.js"></script>
   <script>window.addEventListener('load', () => lucide.replace())</script>
 </body>

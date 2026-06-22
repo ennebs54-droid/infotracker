@@ -1,6 +1,7 @@
 const createMsg = document.getElementById('createMsg');
+const STORAGE_KEY = 'tracking-data';
 
-document.getElementById('create-form').addEventListener('submit', async (e) => {
+document.getElementById('create-form').addEventListener('submit', (e) => {
   e.preventDefault();
   createMsg.style.color = '';
   createMsg.textContent = '';
@@ -28,7 +29,8 @@ document.getElementById('create-form').addEventListener('submit', async (e) => {
     status: document.getElementById('newStatus').value,
     courier: document.getElementById('newCourier').value.trim() || 'Standard Courier',
     company: document.getElementById('newCompany').value.trim() || 'TrackSuite',
-    estimatedDelivery: estDelivery,
+    location: document.getElementById('newLocation').value.trim() || 'Pending Location',
+    estimatedDelivery: document.getElementById('newDelivery').value.trim() || estDelivery,
     latestUpdate: document.getElementById('newUpdate').value.trim() || 'Shipment is being processed.',
     originAddress: document.getElementById('newOrigin').value.trim() || 'Unknown',
     progress,
@@ -36,7 +38,7 @@ document.getElementById('create-form').addEventListener('submit', async (e) => {
   };
 
   try {
-    await window.db.ref('tracking/' + id).set(data);
+    localStorage.setItem(`${STORAGE_KEY}-${id}`, JSON.stringify(data));
     createMsg.style.color = '#10d98a';
     createMsg.textContent = `Tracking ID "${id}" created! Anyone can now look it up.`;
     document.getElementById('create-form').reset();

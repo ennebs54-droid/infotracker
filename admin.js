@@ -1,4 +1,5 @@
 const PROGRESS_STAGES = ['Ordered', 'Confirmed', 'Shipped', 'Out for Delivery', 'Delivered'];
+const STORAGE_KEY = 'tracking-data';
 
 const statusColors = {
   'Approved':         { color: '#10d98a', bg: 'rgba(16,217,138,0.12)' },
@@ -10,40 +11,46 @@ const statusColors = {
   'Awaiting Custom Approval': { color: '#9b59b6', bg: 'rgba(155,89,182,0.12)' },
 };
 
-// Firebase functions
-async function getAdminData() {
-  if (!window.db) return {};
-  const snapshot = await window.db.ref('tracking').once('value');
-  return snapshot.val() || {};
+// LocalStorage functions
+function getAdminData() {
+  const data = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith(STORAGE_KEY + '-')) {
+      const id = key.substring((STORAGE_KEY + '-').length);
+      const value = localStorage.getItem(key);
+      try {
+        data[id] = JSON.parse(value);
+      } catch (e) {
+        console.error('Error parsing stored data:', e);
+      }
+    }
+  }
+  return data;
 }
 
-async function saveTrackingData(id, data) {
-  if (!window.db) {
-    console.error('Firebase not initialized');
-    return false;
-  }
+function saveTrackingData(id, data) {
   try {
-    await window.db.ref('tracking/' + id).set(data);
+    localStorage.setItem(`${STORAGE_KEY}-${id}`, JSON.stringify(data));
     return true;
   } catch (e) {
-    console.error('Firebase save error:', e);
+    console.error('LocalStorage save error:', e);
     return false;
   }
 }
 
-async function deleteTrackingData(id) {
-  if (!window.db) return false;
+function deleteTrackingData(id) {
   try {
-    await window.db.ref('tracking/' + id).remove();
+    localStorage.removeItem(`${STORAGE_KEY}-${id}`);
     return true;
   } catch (e) {
-    console.error('Firebase delete error:', e);
+    console.error('LocalStorage delete error:', e);
     return false;
   }
 }
 
-async function renderList() {
-  const data = await getAdminData();
+function renderList() {
+  const data = getAdminData();
   const list = document.getElementById('trackingList');
   const keys = Object.keys(data);
 
@@ -74,15 +81,15 @@ async function renderList() {
   lucide.replace();
 }
 
-async function deleteTracking(id) {
+function deleteTracking(id) {
   if (confirm(`Delete tracking ID: ${id}?`)) {
-    await deleteTrackingData(id);
+    deleteTrackingData(id);
     renderList();
   }
 }
 
-async function editTracking(id) {
-  const data = await getAdminData();
+function editTracking(id) {
+  const data = getAdminData();
   const t = data[id];
   if (!t) return;
 
@@ -104,11 +111,11 @@ async function editTracking(id) {
     document.getElementById('customStatusWrap').style.display = 'flex';
   }
 
-  await deleteTrackingData(id);
+  deleteTrackingData(id);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-document.getElementById('adminForm').addEventListener('submit', async (e) => {
+document.getElementById('adminForm').addEventListener('submit', (e) => {
   e.preventDefault();
 
   const id = document.getElementById('newTrackingId').value.trim().toUpperCase();
@@ -144,7 +151,7 @@ document.getElementById('adminForm').addEventListener('submit', async (e) => {
     useIpLocation: useIp
   };
 
-  const saved = await saveTrackingData(id, trackingData);
+  const saved = saveTrackingData(id, trackingData);
   if (saved) {
     renderList();
     msg.textContent = `✓ Tracking ID "${id}" saved successfully and is LIVE GLOBALLY!`;
@@ -154,7 +161,7 @@ document.getElementById('adminForm').addEventListener('submit', async (e) => {
     document.querySelector('input[name="status"][value="In Transit"]').checked = true;
     setTimeout(() => { msg.textContent = ''; }, 3000);
   } else {
-    msg.textContent = '✗ Error saving to Firebase. Check your configuration.';
+    msg.textContent = '✗ Error saving to localStorage.';
     msg.className = 'admin-msg error';
   }
 });

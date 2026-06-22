@@ -9,8 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -74,6 +72,16 @@
             </div>
 
             <div class="input-group">
+              <span class="input-icon"><i data-lucide="map-pin"></i></span>
+              <input id="newLocation" type="text" placeholder="Current Location (e.g. Manchester, UK)" />
+            </div>
+
+            <div class="input-group">
+              <span class="input-icon"><i data-lucide="calendar"></i></span>
+              <input id="newDelivery" type="text" placeholder="Estimated Delivery Date (optional)" />
+            </div>
+
+            <div class="input-group">
               <span class="input-icon"><i data-lucide="message-square"></i></span>
               <input id="newUpdate" type="text" placeholder="Latest Update Message" />
             </div>
@@ -117,18 +125,6 @@
 
   </div>
 
-  <script>
-    firebase.initializeApp({
-      apiKey: "AIzaSyDWNhPXroT0Xt7B-actQysJUxdIdFKEqSY",
-      authDomain: "infotracking-d6d41.firebaseapp.com",
-      projectId: "infotracking-d6d41",
-      databaseURL: "https://infotracking-d6d41-default-rtdb.firebaseio.com",
-      storageBucket: "infotracking-d6d41.firebasestorage.app",
-      messagingSenderId: "754440366979",
-      appId: "1:422965308413:web:508188178eb88b0652c794"
-    });
-    window.db = firebase.database();
-  </script>
   <script src="create.js"></script>
 </body>
 </html>
