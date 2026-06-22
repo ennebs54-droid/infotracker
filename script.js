@@ -2,16 +2,16 @@
 const BASE_TRACKING_DATA = {
   GDY234923: {
     status: 'Awaiting Custom Approval',
-    courier: 'Custom Logistics',
-    company: 'Custom Handler',
-    location: 'Pending Location',
-    estimatedDelivery: 'Pending Approval',
+    courier: 'DPD UK',
+    company: 'Royal Mail',
+    location: 'Manchester Distribution Centre, Manchester, UK',
+    estimatedDelivery: 'June 28, 2026',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
     timeline: [
       { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
     ],
-    originAddress: 'Custom Shipment'
+    originAddress: '42 Deansgate, Manchester, UK'
   },
   TRKBU372: {
     status: 'In Transit',
@@ -45,12 +45,12 @@ function initializeSampleDataIfNeeded() {
   const sampleData = {
     'GDY234923': {
       status: 'Awaiting Custom Approval',
-      courier: 'Custom Logistics',
-      company: 'Custom Handler',
-      location: 'Pending Location',
-      estimatedDelivery: 'Pending Approval',
+      courier: 'DPD UK',
+      company: 'Royal Mail',
+      location: 'Manchester Distribution Centre, Manchester, UK',
+      estimatedDelivery: 'June 28, 2026',
       latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
-      originAddress: 'Custom Shipment',
+      originAddress: '42 Deansgate, Manchester, UK',
       progress: ['Ordered', 'Confirmed'],
       timeline: [
         { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
