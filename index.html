@@ -12,22 +12,37 @@
 </head>
 <body>
   <div class="page-shell">
-    <header class="hero-section">
-      <p class="eyebrow">Shipment Tracking</p>
-      <h1>Track Your Order</h1>
-      <p class="hero-copy">Enter your tracking number to get instant shipment visibility, progress updates, and delivery timing.</p>
-      <div class="search-panel card">
-        <form id="track-form" class="track-form" autocomplete="off">
-          <label for="trackingNumber" class="sr-only">Tracking Number</label>
-          <div class="input-group premium-input">
-            <span class="icon"><i data-lucide="package"></i></span>
-            <input id="trackingNumber" type="text" placeholder="Enter Tracking Number" />
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-brand">TrackSuite</div>
+        <div class="navbar-actions">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            Live Tracking
           </div>
-          <button type="submit" class="primary-btn premium-btn">Track Order</button>
-        </form>
-        <div id="statusMessage" class="status-message"></div>
+          <button class="create-btn">Create Tracking ID</button>
+        </div>
       </div>
     </header>
+
+    <main class="hero-container">
+      <header class="hero-section">
+        <div class="hero-badge">Real-time shipment visibility</div>
+        <h1 class="hero-title">Know exactly where <span class="highlight">your package is.</span></h1>
+        <p class="hero-copy">Enter your tracking number for instant updates on your shipment's location, status, and delivery timing.</p>
+        <div class="search-panel card">
+          <form id="track-form" class="track-form" autocomplete="off">
+            <label for="trackingNumber" class="sr-only">Tracking Number</label>
+            <div class="input-group premium-input">
+              <span class="icon"><i data-lucide="package"></i></span>
+              <input id="trackingNumber" type="text" placeholder="Enter your tracking number..." />
+            </div>
+            <button type="submit" class="primary-btn premium-btn">Track Now</button>
+          </form>
+          <div id="statusMessage" class="status-message"></div>
+        </div>
+      </header>
+    </main>
 
     <section id="resultsSection" class="results-section hidden">
       <div class="cards-grid">
