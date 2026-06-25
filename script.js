@@ -39,8 +39,40 @@ const TRACKING_DATA = {
       { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
+  },
+  DGW36964: {
+    status: 'In Transit',
+    courier: 'Global Express',
+    company: 'Global Express',
+    location: null,
+    estimatedDelivery: null,
+    latestUpdate: 'Package departed California facility and is en route to destination.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timeline: [
+      { time: 'Today, 9:45 AM', event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
+      { time: 'Yesterday, 6:30 PM', event: 'Shipment picked up', note: 'Pickup confirmed by Global Express courier.' },
+      { time: 'Yesterday, 9:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Los Angeles, California, USA',
+    useIpLocation: true
   }
 };
+
+async function getIpLocation() {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const d = await res.json();
+    if (d.country_code === 'US' && d.region) return d.region + ', USA';
+    if (d.city && d.country_name) return d.city + ', ' + d.country_name;
+    return null;
+  } catch { return null; }
+}
+
+function getDateInDays(days) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
 
 const statusBadge = document.getElementById('statusBadge');
 const displayTracking = document.getElementById('displayTracking');
@@ -124,7 +156,7 @@ function showError(message) {
   resultsSection.classList.add('hidden');
 }
 
-trackForm.addEventListener('submit', (event) => {
+trackForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   statusMessage.textContent = '';
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
@@ -135,11 +167,23 @@ trackForm.addEventListener('submit', (event) => {
   }
 
   const data = TRACKING_DATA[cleaned];
-  if (data) {
-    showResult(data, cleaned);
-  } else {
+  if (!data) {
     showError('Tracking number not found');
+    return;
   }
+
+  const resolved = Object.assign({}, data);
+
+  if (data.useIpLocation) {
+    const loc = await getIpLocation();
+    resolved.location = loc || 'United States';
+  }
+
+  if (!data.estimatedDelivery) {
+    resolved.estimatedDelivery = getDateInDays(2);
+  }
+
+  showResult(resolved, cleaned);
 });
 
 trackingNumberInput.addEventListener('input', () => {
