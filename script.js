@@ -53,8 +53,9 @@ const TRACKING_DATA = {
       { time: 'Yesterday, 5:15 PM', event: 'Arrived at facility', note: 'Package arrived at Columbus, Ohio distribution center.' },
       { time: 'Yesterday, 10:00 AM', event: 'Shipment picked up', note: 'Pickup confirmed by UPS courier.' }
     ],
-    originAddress: 'Los Angeles, California, USA'
+    originAddress: 'Manchester, UK'
   },
+  DGW36964: {
     status: 'In Transit',
     courier: 'Global Express',
     company: 'Global Express',
