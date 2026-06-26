@@ -40,7 +40,21 @@ const TRACKING_DATA = {
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
   },
-  DGW36964: {
+  HFDBW2738: {
+    status: 'Held for Receipt Confirmation',
+    courier: 'UPS',
+    company: 'UPS',
+    location: 'Columbus, Ohio, USA',
+    estimatedDelivery: null,
+    latestUpdate: 'Package is held at facility pending receipt confirmation from recipient.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timeline: [
+      { time: 'Today, 8:30 AM', event: 'Held for Receipt Confirmation', note: 'Package is held at the Ohio facility. Awaiting confirmation from recipient before delivery.' },
+      { time: 'Yesterday, 5:15 PM', event: 'Arrived at facility', note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { time: 'Yesterday, 10:00 AM', event: 'Shipment picked up', note: 'Pickup confirmed by UPS courier.' }
+    ],
+    originAddress: 'Los Angeles, California, USA'
+  },
     status: 'In Transit',
     courier: 'Global Express',
     company: 'Global Express',
