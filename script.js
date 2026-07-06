@@ -70,6 +70,38 @@ const TRACKING_DATA = {
     ],
     originAddress: 'Los Angeles, California, USA',
     useIpLocation: true
+  },
+  OHIO456789: {
+    status: 'In Transit',
+    courier: 'Express Logistics',
+    company: 'Express Logistics',
+    location: null,
+    estimatedDelivery: null,
+    latestUpdate: 'Package is in transit to your location.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timeline: [
+      { time: 'Today, 12:00 PM', event: 'Departed Ohio facility', note: 'Package left the Ohio distribution center and is en route to your location.' },
+      { time: 'Today, 8:30 AM', event: 'Shipment picked up', note: 'Pickup confirmed by Express Logistics courier.' },
+      { time: 'Yesterday, 6:00 PM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Columbus, Ohio, USA',
+    useIpLocation: true
+  },
+  YEJ472822: {
+    status: 'In Transit',
+    courier: 'Express Logistics',
+    company: 'Express Logistics',
+    location: null,
+    estimatedDelivery: null,
+    latestUpdate: 'Package is moving through the Ohio region and is on its way to your location.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timeline: [
+      { time: 'Today, 1:15 PM', event: 'Departed Ohio facility', note: 'Package left the Ohio distribution center and is en route to your location.' },
+      { time: 'Today, 9:40 AM', event: 'Shipment picked up', note: 'Pickup confirmed by Express Logistics courier.' },
+      { time: 'Yesterday, 7:00 PM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Cleveland, Ohio, USA',
+    useIpLocation: true
   }
 };
 
