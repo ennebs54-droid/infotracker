@@ -7,8 +7,10 @@ const TRACKING_DATA = {
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
-    timeline: [
-      { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
+    timelineTemplate: [
+      { hoursAgo: 1,  event: 'Awaiting Approval',     note: 'Shipment is awaiting custom approval before proceeding.' },
+      { hoursAgo: 18, event: 'Arrived at facility',   note: 'Package arrived at Manchester customs facility.' },
+      { hoursAgo: 26, event: 'Shipment processed',    note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '42 Deansgate, Manchester, UK'
   },
@@ -20,10 +22,10 @@ const TRACKING_DATA = {
     estimatedDelivery: 'May 14, 2026',
     latestUpdate: 'Package departed sort facility and is en route to distribution center.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
-    timeline: [
-      { time: 'Today, 10:24 AM', event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
-      { time: 'Yesterday, 7:12 PM', event: 'Shipment picked up', note: 'Pickup confirmed by courier partner.' },
-      { time: 'Yesterday, 8:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+    timelineTemplate: [
+      { hoursAgo: 2,  event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
+      { hoursAgo: 20, event: 'Shipment picked up',     note: 'Pickup confirmed by courier partner.' },
+      { hoursAgo: 28, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
   },
@@ -35,8 +37,10 @@ const TRACKING_DATA = {
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
-    timeline: [
-      { time: 'Today, 10:00 AM', event: 'Awaiting Approval', note: 'Shipment is awaiting custom approval before proceeding.' }
+    timelineTemplate: [
+      { hoursAgo: 1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
+      { hoursAgo: 15, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
+      { hoursAgo: 24, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
   },
@@ -48,10 +52,10 @@ const TRACKING_DATA = {
     estimatedDelivery: null,
     latestUpdate: 'Package is held at facility pending receipt confirmation from recipient.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
-    timeline: [
-      { time: 'Today, 8:30 AM', event: 'Held for Receipt Confirmation', note: 'Package is held at the Ohio facility. Awaiting confirmation from recipient before delivery.' },
-      { time: 'Yesterday, 5:15 PM', event: 'Arrived at facility', note: 'Package arrived at Columbus, Ohio distribution center.' },
-      { time: 'Yesterday, 10:00 AM', event: 'Shipment picked up', note: 'Pickup confirmed by UPS courier.' }
+    timelineTemplate: [
+      { hoursAgo: 1,  event: 'Held for Receipt Confirmation', note: 'Package is held at the Ohio facility. Awaiting confirmation from recipient before delivery.' },
+      { hoursAgo: 19, event: 'Arrived at facility',           note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 27, event: 'Shipment picked up',            note: 'Pickup confirmed by UPS courier.' }
     ],
     originAddress: 'Manchester, UK'
   },
@@ -63,48 +67,57 @@ const TRACKING_DATA = {
     estimatedDelivery: null,
     latestUpdate: 'Package departed California facility and is en route to destination.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
-    timeline: [
-      { time: 'Today, 9:45 AM', event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
-      { time: 'Yesterday, 6:30 PM', event: 'Shipment picked up', note: 'Pickup confirmed by Global Express courier.' },
-      { time: 'Yesterday, 9:00 AM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
+    timelineTemplate: [
+      { hoursAgo: 2,  event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
+      { hoursAgo: 21, event: 'Shipment picked up',     note: 'Pickup confirmed by Global Express courier.' },
+      { hoursAgo: 29, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: 'Los Angeles, California, USA',
-    useIpLocation: true
-  },
-  OHIO456789: {
-    status: 'In Transit',
-    courier: 'Express Logistics',
-    company: 'Express Logistics',
-    location: null,
-    estimatedDelivery: null,
-    latestUpdate: 'Package is in transit to your location.',
-    progress: ['Ordered', 'Confirmed', 'Shipped'],
-    timeline: [
-      { time: 'Today, 12:00 PM', event: 'Departed Ohio facility', note: 'Package left the Ohio distribution center and is en route to your location.' },
-      { time: 'Today, 8:30 AM', event: 'Shipment picked up', note: 'Pickup confirmed by Express Logistics courier.' },
-      { time: 'Yesterday, 6:00 PM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
-    ],
-    originAddress: 'Columbus, Ohio, USA',
-    useIpLocation: true
-  },
-  YEJ472822: {
-    status: 'In Transit',
-    courier: 'Express Logistics',
-    company: 'Express Logistics',
-    location: null,
-    estimatedDelivery: null,
-    latestUpdate: 'Package is moving through the Ohio region and is on its way to your location.',
-    progress: ['Ordered', 'Confirmed', 'Shipped'],
-    timeline: [
-      { time: 'Today, 1:15 PM', event: 'Departed Ohio facility', note: 'Package left the Ohio distribution center and is en route to your location.' },
-      { time: 'Today, 9:40 AM', event: 'Shipment picked up', note: 'Pickup confirmed by Express Logistics courier.' },
-      { time: 'Yesterday, 7:00 PM', event: 'Shipment processed', note: 'Shipment has entered the carrier network.' }
-    ],
-    originAddress: 'Cleveland, Ohio, USA',
     useIpLocation: true
   }
 };
 
+// ── Time helpers ──
+function formatTime(date) {
+  const now = new Date();
+  const isToday = date.toDateString() === now.toDateString();
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  const isYesterday = date.toDateString() === yesterday.toDateString();
+  const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  if (isToday) return `Today, ${time}`;
+  if (isYesterday) return `Yesterday, ${time}`;
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + `, ${time}`;
+}
+
+function buildTimeline(template, anchorTime) {
+  return template.map(entry => {
+    const d = new Date(anchorTime - entry.hoursAgo * 60 * 60 * 1000);
+    return { time: formatTime(d), event: entry.event, note: entry.note };
+  });
+}
+
+function getDateInDays(days) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+// ── Per-user localStorage persistence ──
+function getUserData(trackingId) {
+  try {
+    const stored = localStorage.getItem('ts_' + trackingId);
+    return stored ? JSON.parse(stored) : null;
+  } catch { return null; }
+}
+
+function saveUserData(trackingId, data) {
+  try {
+    localStorage.setItem('ts_' + trackingId, JSON.stringify(data));
+  } catch {}
+}
+
+// ── IP location ──
 async function getIpLocation() {
   try {
     const res = await fetch('https://ipapi.co/json/');
@@ -115,34 +128,31 @@ async function getIpLocation() {
   } catch { return null; }
 }
 
-function getDateInDays(days) {
-  const d = new Date();
-  d.setDate(d.getDate() + days);
-  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-}
-
-const statusBadge = document.getElementById('statusBadge');
-const displayTracking = document.getElementById('displayTracking');
-const deliveryDate = document.getElementById('deliveryDate');
-const courierInfo = document.getElementById('courierInfo');
-const companyName = document.getElementById('companyName');
-const packageLocation = document.getElementById('packageLocation');
-const latestUpdate = document.getElementById('latestUpdate');
-const timelineList = document.getElementById('timelineList');
-const resultsSection = document.getElementById('resultsSection');
-const trackForm = document.getElementById('track-form');
+// ── DOM refs ──
+const statusBadge         = document.getElementById('statusBadge');
+const displayTracking     = document.getElementById('displayTracking');
+const deliveryDate        = document.getElementById('deliveryDate');
+const courierInfo         = document.getElementById('courierInfo');
+const companyName         = document.getElementById('companyName');
+const packageLocation     = document.getElementById('packageLocation');
+const latestUpdate        = document.getElementById('latestUpdate');
+const timelineList        = document.getElementById('timelineList');
+const resultsSection      = document.getElementById('resultsSection');
+const trackForm           = document.getElementById('track-form');
 const trackingNumberInput = document.getElementById('trackingNumber');
-const statusMessage = document.getElementById('statusMessage');
-const progressBar = document.getElementById('progressBar');
-const stepElements = Array.from(document.querySelectorAll('.step'));
+const statusMessage       = document.getElementById('statusMessage');
+const progressBar         = document.getElementById('progressBar');
+const stepElements        = Array.from(document.querySelectorAll('.step'));
 const shippedAddressField = document.getElementById('shippedAddress');
 
 const statusStyles = {
-  Delivered: { background: '#2f9c69', text: '#ffffff' },
-  'In Transit': { background: '#f39c12', text: '#ffffff' },
-  Processing: { background: '#5b5fd3', text: '#ffffff' },
-  Confirmed: { background: '#3498db', text: '#ffffff' },
-  'Out for Delivery': { background: '#f39c12', text: '#ffffff' }
+  'Delivered':                   { background: '#2f9c69', text: '#ffffff' },
+  'In Transit':                  { background: '#f39c12', text: '#ffffff' },
+  'Processing':                  { background: '#5b5fd3', text: '#ffffff' },
+  'Confirmed':                   { background: '#3498db', text: '#ffffff' },
+  'Out for Delivery':            { background: '#f39c12', text: '#ffffff' },
+  'Awaiting Custom Approval':    { background: '#9b59b6', text: '#ffffff' },
+  'Held for Receipt Confirmation': { background: '#e67e22', text: '#ffffff' }
 };
 
 function setStatusBadge(status) {
@@ -156,21 +166,16 @@ function setProgress(progressSteps) {
   const completed = progressSteps.length;
   const total = stepElements.length;
   stepElements.forEach((stepEl, index) => {
-    if (index < completed) {
-      stepEl.classList.add('active');
-      stepEl.style.color = 'var(--text)';
-    } else {
-      stepEl.classList.remove('active');
-      stepEl.style.color = 'var(--muted)';
-    }
-    stepEl.querySelector('.step-dot').style.background = index < completed ? '#1ab6ff' : 'rgba(27, 35, 48, 0.12)';
+    stepEl.classList.toggle('active', index < completed);
+    stepEl.style.color = index < completed ? 'var(--text)' : 'var(--muted)';
+    stepEl.querySelector('.step-dot').style.background = index < completed ? '#1ab6ff' : 'rgba(27,35,48,0.12)';
   });
   progressBar.style.width = `${Math.min((completed / total) * 100, 100)}%`;
 }
 
 function renderTimeline(entries) {
   timelineList.innerHTML = '';
-  entries.forEach((entry) => {
+  entries.forEach(entry => {
     const li = document.createElement('li');
     li.className = 'timeline-item';
     li.innerHTML = `
@@ -184,8 +189,8 @@ function renderTimeline(entries) {
   });
 }
 
-function showResult(data, trackingKey) {
-  displayTracking.textContent = trackingKey;
+function showResult(data) {
+  displayTracking.textContent = data.trackingId;
   deliveryDate.textContent = data.estimatedDelivery;
   courierInfo.textContent = data.courier;
   companyName.textContent = data.company;
@@ -208,29 +213,37 @@ trackForm.addEventListener('submit', async (event) => {
   statusMessage.textContent = '';
   const cleaned = trackingNumberInput.value.trim().toUpperCase();
 
-  if (!cleaned) {
-    showError('Please enter a tracking number');
-    return;
-  }
+  if (!cleaned) { showError('Please enter a tracking number'); return; }
 
-  const data = TRACKING_DATA[cleaned];
-  if (!data) {
-    showError('Tracking number not found');
-    return;
-  }
+  const base = TRACKING_DATA[cleaned];
+  if (!base) { showError('Tracking number not found'); return; }
 
-  const resolved = Object.assign({}, data);
+  // Return saved user-specific data if it exists
+  const saved = getUserData(cleaned);
+  if (saved) { showResult(saved); return; }
 
-  if (data.useIpLocation) {
+  // First time — build personalised snapshot
+  const now = Date.now();
+  const resolved = {
+    trackingId: cleaned,
+    status: base.status,
+    courier: base.courier,
+    company: base.company,
+    location: base.location,
+    estimatedDelivery: base.estimatedDelivery || getDateInDays(2),
+    latestUpdate: base.latestUpdate,
+    progress: base.progress,
+    originAddress: base.originAddress,
+    timeline: buildTimeline(base.timelineTemplate, now)
+  };
+
+  if (base.useIpLocation) {
     const loc = await getIpLocation();
     resolved.location = loc || 'United States';
   }
 
-  if (!data.estimatedDelivery) {
-    resolved.estimatedDelivery = getDateInDays(2);
-  }
-
-  showResult(resolved, cleaned);
+  saveUserData(cleaned, resolved);
+  showResult(resolved);
 });
 
 trackingNumberInput.addEventListener('input', () => {
