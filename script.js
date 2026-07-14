@@ -8,9 +8,9 @@ const TRACKING_DATA = {
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
     timelineTemplate: [
-      { hoursAgo: 1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
-      { hoursAgo: 18, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
-      { hoursAgo: 26, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
+      { hoursAgo: 0.1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
+      { hoursAgo: 0.3, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
+      { hoursAgo: 0.5, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '42 Deansgate, Manchester, UK'
   },
@@ -23,9 +23,9 @@ const TRACKING_DATA = {
     latestUpdate: 'Package departed sort facility and is en route to distribution center.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
-      { hoursAgo: 2,  event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
-      { hoursAgo: 20, event: 'Shipment picked up',     note: 'Pickup confirmed by courier partner.' },
-      { hoursAgo: 28, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
+      { hoursAgo: 0.1,  event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
+      { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by courier partner.' },
+      { hoursAgo: 0.5, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
   },
@@ -38,9 +38,9 @@ const TRACKING_DATA = {
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     progress: ['Ordered', 'Confirmed'],
     timelineTemplate: [
-      { hoursAgo: 1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
-      { hoursAgo: 15, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
-      { hoursAgo: 24, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
+      { hoursAgo: 0.1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
+      { hoursAgo: 0.3, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
+      { hoursAgo: 0.5, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: '48 Willowbrook Lane, Manchester, UK'
   },
@@ -53,9 +53,9 @@ const TRACKING_DATA = {
     latestUpdate: 'Package is held at facility pending receipt confirmation from recipient.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
-      { hoursAgo: 1,  event: 'Held for Receipt Confirmation', note: 'Package is held at the Ohio facility. Awaiting confirmation from recipient before delivery.' },
-      { hoursAgo: 19, event: 'Arrived at facility',           note: 'Package arrived at Columbus, Ohio distribution center.' },
-      { hoursAgo: 27, event: 'Shipment picked up',            note: 'Pickup confirmed by UPS courier.' }
+      { hoursAgo: 0.1,  event: 'Held for Receipt Confirmation', note: 'Package is held at the Ohio facility. Awaiting confirmation from recipient before delivery.' },
+      { hoursAgo: 0.3, event: 'Arrived at facility',           note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 0.5, event: 'Shipment picked up',            note: 'Pickup confirmed by UPS courier.' }
     ],
     originAddress: 'Manchester, UK',
     deliveryDays: 2
@@ -69,9 +69,9 @@ const TRACKING_DATA = {
     latestUpdate: 'Package departed California facility and is en route to destination.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
-      { hoursAgo: 2,  event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
-      { hoursAgo: 21, event: 'Shipment picked up',     note: 'Pickup confirmed by Global Express courier.' },
-      { hoursAgo: 29, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
+      { hoursAgo: 0.1,  event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
+      { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by Global Express courier.' },
+      { hoursAgo: 0.5, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: 'Los Angeles, California, USA',
     useIpLocation: true,
@@ -86,10 +86,10 @@ const TRACKING_DATA = {
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
-      { hoursAgo: 0.1, event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
-      { hoursAgo: 3,   event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
-      { hoursAgo: 8,   event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
-      { hoursAgo: 14,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
+      { hoursAgo: 0.1,  event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
+      { hoursAgo: 0.2,  event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 0.35, event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
+      { hoursAgo: 0.5,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: 'Columbus, Ohio, USA',
     useIpLocation: true,
@@ -123,10 +123,10 @@ function getDateInDays(days) {
 
 // ── Per-user localStorage ──
 function getUserData(id) {
-  try { const s = localStorage.getItem('ts_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
+  try { const s = localStorage.getItem('ts2_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
 }
 function saveUserData(id, data) {
-  try { localStorage.setItem('ts_' + id, JSON.stringify(data)); } catch {}
+  try { localStorage.setItem('ts2_' + id, JSON.stringify(data)); } catch {}
 }
 
 // ── IP location ──
