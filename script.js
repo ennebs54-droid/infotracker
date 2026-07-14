@@ -59,7 +59,24 @@ const TRACKING_DATA = {
     ],
     originAddress: 'Manchester, UK'
   },
-  DGW36964: {
+  HBWK13843: {
+    status: 'Awaiting Custom Fee Payment',
+    courier: 'UPS',
+    company: 'UPS',
+    location: null,
+    estimatedDelivery: null,
+    latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timelineTemplate: [
+      { hoursAgo: 0.1, event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
+      { hoursAgo: 3,   event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 8,   event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
+      { hoursAgo: 14,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Columbus, Ohio, USA',
+    useIpLocation: true,
+    deliveryDays: 4
+  },
     status: 'In Transit',
     courier: 'Global Express',
     company: 'Global Express',
@@ -230,7 +247,7 @@ trackForm.addEventListener('submit', async (event) => {
     courier: base.courier,
     company: base.company,
     location: base.location,
-    estimatedDelivery: base.estimatedDelivery || getDateInDays(2),
+    estimatedDelivery: base.estimatedDelivery || getDateInDays(base.deliveryDays || 2),
     latestUpdate: base.latestUpdate,
     progress: base.progress,
     originAddress: base.originAddress,
