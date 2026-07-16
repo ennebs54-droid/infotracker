@@ -77,6 +77,42 @@ const TRACKING_DATA = {
     useIpLocation: true,
     deliveryDays: 2
   },
+  DTCJ497212: {
+    status: 'Awaiting Custom Fee Payment',
+    courier: 'UPS',
+    company: 'UPS',
+    location: 'Columbus, Ohio, USA',
+    estimatedDelivery: null,
+    latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timelineTemplate: [
+      { hoursAgo: 0.1, event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
+      { hoursAgo: 3,   event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 8,   event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
+      { hoursAgo: 14,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Columbus, Ohio, USA',
+    useIpLocation: true,
+    deliveryDays: 4
+  },
+  SYEW26767: {
+    status: 'Awaiting Custom Fee Payment',
+    courier: 'UPS',
+    company: 'UPS',
+    location: 'Columbus, Ohio, USA',
+    estimatedDelivery: null,
+    latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timelineTemplate: [
+      { hoursAgo: 24.1,  event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
+      { hoursAgo: 24.3,  event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 24.5,  event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
+      { hoursAgo: 24.8,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Washington, USA',
+    useIpLocation: true,
+    deliveryDays: 4
+  },
   HBWK13843: {
     status: 'Awaiting Custom Fee Payment',
     courier: 'UPS',
