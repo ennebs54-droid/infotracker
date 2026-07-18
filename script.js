@@ -104,10 +104,10 @@ const TRACKING_DATA = {
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
-      { hoursAgo: 24.1,  event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
-      { hoursAgo: 24.3,  event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
-      { hoursAgo: 24.5,  event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
-      { hoursAgo: 24.8,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
+      { hoursAgo: 1.0,  event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
+      { hoursAgo: 1.2,  event: 'Arrived at Ohio facility',   note: 'Package arrived at Columbus, Ohio distribution center.' },
+      { hoursAgo: 1.4,  event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
+      { hoursAgo: 1.6,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: 'Washington, USA',
     useIpLocation: true,
