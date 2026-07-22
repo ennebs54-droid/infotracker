@@ -12,7 +12,7 @@ const TRACKING_DATA = {
       { hoursAgo: 0.3, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
       { hoursAgo: 0.5, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: '42 Deansgate, Manchester, UK'
+    originAddress: 'Cleveland, Ohio, USA'
   },
   TRKBU372: {
     status: 'In Transit',
@@ -27,7 +27,7 @@ const TRACKING_DATA = {
       { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by courier partner.' },
       { hoursAgo: 0.5, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: '48 Willowbrook Lane, Manchester, UK'
+    originAddress: 'Columbus, Ohio, USA'
   },
   HDC284927: {
     status: 'Awaiting Custom Approval',
@@ -42,7 +42,7 @@ const TRACKING_DATA = {
       { hoursAgo: 0.3, event: 'Arrived at facility', note: 'Package arrived at Manchester customs facility.' },
       { hoursAgo: 0.5, event: 'Shipment processed',  note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: '48 Willowbrook Lane, Manchester, UK'
+    originAddress: 'Columbus, Ohio, USA'
   },
   HFDBW2738: {
     status: 'Held for Receipt Confirmation',
@@ -57,7 +57,7 @@ const TRACKING_DATA = {
       { hoursAgo: 0.3, event: 'Arrived at facility',           note: 'Package arrived at Columbus, Ohio distribution center.' },
       { hoursAgo: 0.5, event: 'Shipment picked up',            note: 'Pickup confirmed by UPS courier.' }
     ],
-    originAddress: 'Manchester, UK',
+    originAddress: 'Cincinnati, Ohio, USA',
     deliveryDays: 2
   },
   DGW36964: {
@@ -73,7 +73,7 @@ const TRACKING_DATA = {
       { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by Global Express courier.' },
       { hoursAgo: 0.5, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: 'Los Angeles, California, USA',
+    originAddress: 'Dayton, Ohio, USA',
     useIpLocation: true,
     deliveryDays: 2
   },
@@ -109,7 +109,7 @@ const TRACKING_DATA = {
       { hoursAgo: 1.4,  event: 'Shipment picked up',         note: 'Pickup confirmed by UPS courier.' },
       { hoursAgo: 1.6,  event: 'Shipment processed',         note: 'Shipment has entered the carrier network.' }
     ],
-    originAddress: 'Washington, USA',
+    originAddress: 'Toledo, Ohio, USA',
     useIpLocation: true,
     deliveryDays: 4
   },
@@ -158,11 +158,12 @@ function getDateInDays(days) {
 }
 
 // ── Per-user localStorage ──
+const CACHE_VERSION = 'v3';
 function getUserData(id) {
-  try { const s = localStorage.getItem('ts2_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
+  try { const s = localStorage.getItem(CACHE_VERSION + '_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
 }
 function saveUserData(id, data) {
-  try { localStorage.setItem('ts2_' + id, JSON.stringify(data)); } catch {}
+  try { localStorage.setItem(CACHE_VERSION + '_' + id, JSON.stringify(data)); } catch {}
 }
 
 // ── IP location ──
