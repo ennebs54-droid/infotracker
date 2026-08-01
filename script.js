@@ -5,7 +5,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Manchester Distribution Centre, Manchester, UK',
     estimatedDelivery: 'Pending Approval',
-    latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     fee: '$60',
     progress: ['Ordered', 'Confirmed'],
     timelineTemplate: [
@@ -21,7 +20,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Manchester, UK',
     estimatedDelivery: 'May 14, 2026',
-    latestUpdate: 'Package departed sort facility and is en route to distribution center.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
@@ -36,7 +34,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Manchester, UK',
     estimatedDelivery: 'Pending Approval',
-    latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
     fee: '$60',
     progress: ['Ordered', 'Confirmed'],
     timelineTemplate: [
@@ -52,7 +49,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
-    latestUpdate: 'Package is held at facility pending receipt confirmation from recipient.',
     fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
@@ -69,7 +65,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: null,
     estimatedDelivery: null,
-    latestUpdate: 'Package departed California facility and is en route to destination.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
@@ -86,7 +81,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
-    latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
     fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
@@ -105,7 +99,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
-    latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
     fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
@@ -124,7 +117,6 @@ const TRACKING_DATA = {
     company: 'UPS',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
-    latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
     fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
@@ -190,7 +182,7 @@ const deliveryDate        = document.getElementById('deliveryDate');
 const courierInfo         = document.getElementById('courierInfo');
 const companyName         = document.getElementById('companyName');
 const packageLocation     = document.getElementById('packageLocation');
-const latestUpdate        = document.getElementById('latestUpdate');
+
 const timelineList        = document.getElementById('timelineList');
 const resultsSection      = document.getElementById('resultsSection');
 const trackForm           = document.getElementById('track-form');
@@ -251,7 +243,6 @@ function showResult(data) {
   companyName.textContent = data.company;
   packageLocation.textContent = data.location;
   shippedAddressField.innerHTML = data.originAddress.replace(/, /g, '<br>');
-  latestUpdate.textContent = data.latestUpdate;
   setStatusBadge(data.status);
   setProgress(data.progress);
   renderTimeline(data.timeline);
@@ -300,7 +291,6 @@ trackForm.addEventListener('submit', async (event) => {
     company: base.company,
     location: base.location,
     estimatedDelivery: base.estimatedDelivery || getDateInDays(base.deliveryDays || 2),
-    latestUpdate: base.latestUpdate,
     fee: base.fee || null,
     progress: base.progress,
     originAddress: base.originAddress,
