@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Delivery Tracking Dashboard</title>
+  <title>FedEx — Track Your Shipment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -14,16 +14,14 @@
   <div class="page-shell">
     <nav class="navbar">
       <div class="nav-logo">
-        <i data-lucide="package-2" class="nav-icon"></i>
-        <span>TrackSuite</span>
+        <span class="fed">Fed</span><span class="ex">Ex</span>
       </div>
-
     </nav>
     
     <header class="hero-section">
       <p class="eyebrow">Shipment Tracking</p>
-      <h1>Track Your Order</h1>
-      <p class="hero-copy">Enter your tracking number to get instant shipment visibility, progress updates, and delivery timing.</p>
+      <h1>Track Your Shipment</h1>
+      <p class="hero-copy">Enter your FedEx tracking number to get real-time shipment visibility, progress updates, and estimated delivery.</p>
       <div class="search-panel card">
         <form id="track-form" class="track-form" autocomplete="off">
           <label for="trackingNumber" class="sr-only">Tracking Number</label>
@@ -131,6 +129,10 @@
       </article>
     </section>
   </div>
+
+  <footer class="site-footer">
+    &copy; 2024 FedEx. All rights reserved.
+  </footer>
 
   <script src="script.js?v=3"></script>
   <script>
