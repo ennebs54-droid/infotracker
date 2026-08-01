@@ -6,7 +6,7 @@ const TRACKING_DATA = {
     location: 'Manchester Distribution Centre, Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
-    fee: '$149.99',
+    fee: '$60',
     progress: ['Ordered', 'Confirmed'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
@@ -37,7 +37,7 @@ const TRACKING_DATA = {
     location: 'Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
-    fee: '$199.99',
+    fee: '$60',
     progress: ['Ordered', 'Confirmed'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Awaiting Approval',   note: 'Shipment is awaiting custom approval before proceeding.' },
@@ -53,7 +53,7 @@ const TRACKING_DATA = {
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held at facility pending receipt confirmation from recipient.',
-    fee: '$89.99',
+    fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Held for Receipt Confirmation', note: 'Package is held at the Ohio facility. Awaiting confirmation from recipient before delivery.' },
@@ -87,7 +87,7 @@ const TRACKING_DATA = {
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
-    fee: '$249.99',
+    fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1, event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
@@ -106,7 +106,7 @@ const TRACKING_DATA = {
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
-    fee: '$179.99',
+    fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 1.0,  event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
@@ -125,7 +125,7 @@ const TRACKING_DATA = {
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
-    fee: '$219.99',
+    fee: '$60',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Awaiting Custom Fee Payment', note: 'Package is held at the Ohio facility. Custom fee payment required before release.' },
