@@ -164,7 +164,7 @@ function getDateInDays(days) {
 }
 
 // ── Per-user localStorage ──
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v5';
 function getUserData(id) {
   try { const s = localStorage.getItem(CACHE_VERSION + '_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
 }
@@ -191,8 +191,6 @@ const courierInfo         = document.getElementById('courierInfo');
 const companyName         = document.getElementById('companyName');
 const packageLocation     = document.getElementById('packageLocation');
 const latestUpdate        = document.getElementById('latestUpdate');
-
-const timelineList        = document.getElementById('timelineList');
 const resultsSection      = document.getElementById('resultsSection');
 const trackForm           = document.getElementById('track-form');
 const trackingNumberInput = document.getElementById('trackingNumber');
@@ -229,22 +227,6 @@ function setProgress(progressSteps) {
   progressBar.style.width = `${Math.min((completed / stepElements.length) * 100, 100)}%`;
 }
 
-function renderTimeline(entries) {
-  timelineList.innerHTML = '';
-  entries.forEach(entry => {
-    const li = document.createElement('li');
-    li.className = 'timeline-item';
-    li.innerHTML = `
-      <span class="timeline-marker"></span>
-      <div class="timeline-details">
-        <p class="title">${entry.event}</p>
-        <p class="meta">${entry.time} · ${entry.note}</p>
-      </div>
-    `;
-    timelineList.appendChild(li);
-  });
-}
-
 function showResult(data) {
   displayTracking.textContent = data.trackingId;
   deliveryDate.textContent = data.estimatedDelivery;
@@ -255,7 +237,6 @@ function showResult(data) {
   shippedAddressField.innerHTML = data.originAddress.replace(/, /g, '<br>');
   setStatusBadge(data.status);
   setProgress(data.progress);
-  renderTimeline(data.timeline);
 
   const existing = document.getElementById('payFeeBtn');
   if (existing) existing.remove();
