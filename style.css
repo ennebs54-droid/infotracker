@@ -529,3 +529,25 @@ body::after {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Pay Fee Button ── */
+.pay-fee-btn {
+  display: block;
+  width: 100%;
+  max-width: 960px;
+  margin: 20px auto 0;
+  padding: 18px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 24px rgba(231,76,60,0.35);
+  transition: var(--transition);
+}
+.pay-fee-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(231,76,60,0.5); }
+.pay-fee-btn:active { transform: translateY(0); }
