@@ -10,108 +10,31 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.1/dist/lucide.min.js"></script>
   <style>
-    body { background: #f4f4f4; }
-    .fdx-nav {
-      background: #4d148c;
-      padding: 0 40px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-    }
-    .fdx-logo { font-size: 26px; font-weight: 900; letter-spacing: -1px; text-decoration: none; }
+    body { background: #f2f2f7; font-family: 'Inter', sans-serif; }
+    .fdx-nav { background: #4d148c; padding: 0 40px; height: 58px; display: flex; align-items: center; }
+    .fdx-logo { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; text-decoration: none; line-height: 1; }
     .fdx-logo .fed { color: #fff; }
     .fdx-logo .ex  { color: #ff6200; }
-    .payment-shell {
-      min-height: calc(100vh - 64px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-    }
+    .payment-shell { min-height: calc(100vh - 58px); display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
     .payment-card {
-      width: 100%;
-      max-width: 480px;
+      width: 100%; max-width: 440px;
       background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 40px 36px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      text-align: center;
-      animation: fadeUp 0.5s ease-out both;
-    }
-    .payment-icon {
-      width: 60px;
-      height: 60px;
-      background: rgba(255,98,0,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      color: #ff6200;
-    }
-    .payment-card h1 {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-      color: #1a1a1a;
-    }
-    .payment-card .tracking-ref {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 28px;
-      letter-spacing: 0.5px;
-    }
-    .fee-box {
-      background: #fff8f5;
-      border: 2px solid #ff6200;
-      border-radius: 6px;
-      padding: 24px;
-      margin-bottom: 28px;
-    }
-    .fee-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #666;
-      margin-bottom: 8px;
-    }
-    .fee-amount {
-      font-size: 48px;
-      font-weight: 900;
-      color: #ff6200;
-      letter-spacing: -2px;
-      line-height: 1;
-    }
-    .fee-note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 10px;
-      line-height: 1.6;
-    }
-    .pay-now-btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      background: #ff6200;
-      color: #fff;
       border: none;
-      border-radius: 4px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    .pay-now-btn:hover { background: #e55a00; }
-    @media (max-width: 520px) {
-      .payment-card { padding: 28px 20px; }
-      .fee-amount { font-size: 40px; }
-      .fdx-nav { padding: 0 20px; }
-    }
+    .payment-icon { width: 60px; height: 60px; background: rgba(255,98,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; color: #ff6200; }
+    .payment-card h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; color: #111; }
+    .payment-card .tracking-ref { font-size: 12px; color: #888; margin-bottom: 24px; }
+    .fee-box { background: #fff8f5; border: none; border-radius: 14px; padding: 24px; margin-bottom: 24px; }
+    .fee-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 8px; }
+    .fee-amount { font-size: 48px; font-weight: 800; color: #ff6200; letter-spacing: -2px; line-height: 1; }
+    .fee-note { font-size: 12px; color: #888; margin-top: 10px; line-height: 1.6; }
+    .pay-now-btn { display: block; width: 100%; padding: 15px; background: #ff6200; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 16px rgba(255,98,0,0.25); }
+    .pay-now-btn:hover { background: #e55a00; transform: translateY(-1px); }
+    @media (max-width: 520px) { .payment-card { padding: 28px 20px; } .fee-amount { font-size: 38px; } .fdx-nav { padding: 0 20px; } }
   </style>
 </head>
 <body>
