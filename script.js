@@ -1,8 +1,8 @@
 const TRACKING_DATA = {
   GDY234923: {
     status: 'Awaiting Custom Approval',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Manchester Distribution Centre, Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
@@ -17,8 +17,8 @@ const TRACKING_DATA = {
   },
   TRKBU372: {
     status: 'In Transit',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Manchester, UK',
     estimatedDelivery: 'May 14, 2026',
     latestUpdate: 'Package departed sort facility and is en route to distribution center.',
@@ -32,8 +32,8 @@ const TRACKING_DATA = {
   },
   HDC284927: {
     status: 'Awaiting Custom Approval',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
@@ -48,8 +48,8 @@ const TRACKING_DATA = {
   },
   HFDBW2738: {
     status: 'Held for Receipt Confirmation',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held at facility pending receipt confirmation from recipient.',
@@ -65,8 +65,8 @@ const TRACKING_DATA = {
   },
   DGW36964: {
     status: 'In Transit',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: null,
     estimatedDelivery: null,
     latestUpdate: 'Package departed California facility and is en route to destination.',
@@ -82,8 +82,8 @@ const TRACKING_DATA = {
   },
   DTCJ497212: {
     status: 'Awaiting Custom Fee Payment',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
@@ -101,8 +101,8 @@ const TRACKING_DATA = {
   },
   SYEW26767: {
     status: 'Awaiting Custom Fee Payment',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
@@ -120,8 +120,8 @@ const TRACKING_DATA = {
   },
   HBWK13843: {
     status: 'Awaiting Custom Fee Payment',
-    courier: 'UPS',
-    company: 'UPS',
+    courier: 'FedEx',
+    company: 'FedEx',
     location: 'Columbus, Ohio, USA',
     estimatedDelivery: null,
     latestUpdate: 'Package is held pending custom fee payment before it can be released for delivery.',
@@ -164,7 +164,7 @@ function getDateInDays(days) {
 }
 
 // ── Per-user localStorage ──
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 function getUserData(id) {
   try { const s = localStorage.getItem(CACHE_VERSION + '_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
 }
