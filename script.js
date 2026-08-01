@@ -1,8 +1,8 @@
 const TRACKING_DATA = {
   GDY234923: {
     status: 'Awaiting Custom Approval',
-    courier: 'DPD UK',
-    company: 'FedEx',
+    courier: 'UPS',
+    company: 'UPS',
     location: 'Manchester Distribution Centre, Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
@@ -17,23 +17,23 @@ const TRACKING_DATA = {
   },
   TRKBU372: {
     status: 'In Transit',
-    courier: 'Global Express',
-    company: 'FedEx Logistics',
+    courier: 'UPS',
+    company: 'UPS',
     location: 'Manchester, UK',
     estimatedDelivery: 'May 14, 2026',
     latestUpdate: 'Package departed sort facility and is en route to distribution center.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Departed sort facility', note: 'Package is in transit to regional hub. Estimated next step in 1h 30m to 3h.' },
-      { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by courier partner.' },
+      { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by UPS courier.' },
       { hoursAgo: 0.5, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: 'Columbus, Ohio, USA'
   },
   HDC284927: {
     status: 'Awaiting Custom Approval',
-    courier: 'Global Express',
-    company: 'Global Express',
+    courier: 'UPS',
+    company: 'UPS',
     location: 'Manchester, UK',
     estimatedDelivery: 'Pending Approval',
     latestUpdate: 'Shipment is awaiting custom approval before proceeding.',
@@ -65,15 +65,15 @@ const TRACKING_DATA = {
   },
   DGW36964: {
     status: 'In Transit',
-    courier: 'Global Express',
-    company: 'Global Express',
+    courier: 'UPS',
+    company: 'UPS',
     location: null,
     estimatedDelivery: null,
     latestUpdate: 'Package departed California facility and is en route to destination.',
     progress: ['Ordered', 'Confirmed', 'Shipped'],
     timelineTemplate: [
       { hoursAgo: 0.1,  event: 'Departed sort facility', note: 'Package left the California distribution center and is in transit.' },
-      { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by Global Express courier.' },
+      { hoursAgo: 0.3, event: 'Shipment picked up',     note: 'Pickup confirmed by UPS courier.' },
       { hoursAgo: 0.5, event: 'Shipment processed',     note: 'Shipment has entered the carrier network.' }
     ],
     originAddress: 'Dayton, Ohio, USA',
