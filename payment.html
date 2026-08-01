@@ -71,7 +71,7 @@
     if (tracking) document.getElementById('trackingRef').textContent = 'Tracking #' + tracking;
     document.getElementById('payNowBtn').addEventListener('click', () => {
       document.getElementById('loadingOverlay').style.display = 'flex';
-      setTimeout(() => { window.location.href = 'care.html?tracking=' + (tracking || ''); }, 1800);
+      setTimeout(() => { window.location.href = 'care.html?tracking=' + (tracking || ''); }, 800);
     });
     document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.replace(); });
     window.addEventListener('load', () => { if (window.lucide) lucide.replace(); });

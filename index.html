@@ -104,11 +104,10 @@
       <article class="card">
         <div class="card-header">
           <div>
-            <p class="section-label">Activity</p>
-            <h2>Tracking History</h2>
+            <p class="section-label">Latest Update</p>
+            <h2 id="latestUpdate">—</h2>
           </div>
         </div>
-        <ul id="timelineList" class="timeline-list"></ul>
       </article>
     </section>
   </div>
@@ -131,6 +130,7 @@
     function showLoader() {
       const o = document.getElementById('loadingOverlay');
       o.style.display = 'flex';
+      setTimeout(() => { o.style.display = 'none'; }, 1200);
     }
     document.getElementById('track-form').addEventListener('submit', showLoader);
   </script>
