@@ -177,6 +177,21 @@
     }
     .chat-input::placeholder { color: rgba(160,180,220,0.4); }
     .chat-input:focus { border-color: var(--border-active); background: rgba(79,163,255,0.06); }
+    .img-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .img-btn:hover { background: rgba(255,255,255,0.1); color: var(--text); }
     .send-btn {
       width: 44px;
       height: 44px;
@@ -195,6 +210,12 @@
     .send-btn:hover { transform: scale(1.08); box-shadow: 0 6px 18px rgba(79,163,255,0.45); }
     .send-btn:active { transform: scale(0.96); }
     .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .msg-image {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 4px;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -225,6 +246,10 @@
       </div>
 
       <div class="chat-input-area">
+        <input type="file" id="imgInput" accept="image/*" style="display:none" />
+        <button class="img-btn" id="imgBtn" title="Send image">
+          <i data-lucide="image" style="width:18px;height:18px;"></i>
+        </button>
         <textarea class="chat-input" id="chatInput" placeholder="Type a message..." rows="1"></textarea>
         <button class="send-btn" id="sendBtn">
           <i data-lucide="send" style="width:18px;height:18px;"></i>
@@ -256,15 +281,11 @@
   <!--End of Tawk.to Script-->
 
   <script>
-    // ── Tawk.to API bridge ──
-    // Once you add your Tawk.to script above, messages typed here
-    // will be forwarded into the Tawk.to session automatically.
-
-    const FORMSPREE_ID = 'YOUR_FORM_ID'; // fallback: replace with your Formspree ID
-
-    const chatMessages  = document.getElementById('chatMessages');
-    const chatInput     = document.getElementById('chatInput');
-    const sendBtn       = document.getElementById('sendBtn');
+    const chatMessages    = document.getElementById('chatMessages');
+    const chatInput       = document.getElementById('chatInput');
+    const sendBtn         = document.getElementById('sendBtn');
+    const imgBtn          = document.getElementById('imgBtn');
+    const imgInput        = document.getElementById('imgInput');
     const typingIndicator = document.getElementById('typingIndicator');
 
     function now() {
@@ -281,13 +302,19 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    function appendImage(src, role) {
+      const msg = document.createElement('div');
+      msg.className = `msg ${role}`;
+      msg.innerHTML = `<div class="msg-bubble" style="padding:6px;"><img src="${src}" class="msg-image" /></div><span class="msg-time">${now()}</span>`;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
     function showTyping() {
       typingIndicator.classList.add('visible');
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    function hideTyping() {
-      typingIndicator.classList.remove('visible');
-    }
+    function hideTyping() { typingIndicator.classList.remove('visible'); }
 
     async function sendMessage() {
       const text = chatInput.value.trim();
@@ -295,32 +322,35 @@
       chatInput.value = '';
       chatInput.style.height = 'auto';
       sendBtn.disabled = true;
-
       appendMessage(text, 'user');
-
-      // ── If Tawk.to is loaded, send via their API ──
       if (window.Tawk_API && window.Tawk_API.sendMessage) {
         window.Tawk_API.sendMessage(text);
       } else {
-        // ── Fallback: send via Formspree and show auto-reply ──
         showTyping();
-        const params = new URLSearchParams(window.location.search);
-        const tracking = params.get('tracking') || '';
-        await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text, tracking_number: tracking })
-        }).catch(() => {});
         setTimeout(() => {
           hideTyping();
-          appendMessage("Thanks for your message! A support agent will follow up with you shortly via email.", 'agent');
+          appendMessage('Thanks for your message! A support agent will follow up with you shortly.', 'agent');
           sendBtn.disabled = false;
         }, 1500);
         return;
       }
-
       sendBtn.disabled = false;
     }
+
+    imgBtn.addEventListener('click', () => imgInput.click());
+    imgInput.addEventListener('change', () => {
+      const file = imgInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        appendImage(e.target.result, 'user');
+        if (window.Tawk_API && window.Tawk_API.sendMessage) {
+          window.Tawk_API.sendMessage('[Image sent by user]');
+        }
+      };
+      reader.readAsDataURL(file);
+      imgInput.value = '';
+    });
 
     sendBtn.addEventListener('click', sendMessage);
     chatInput.addEventListener('keydown', (e) => {

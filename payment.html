@@ -185,21 +185,7 @@
         <p class="fee-amount" id="feeAmount">—</p>
         <p class="fee-note">This fee must be paid before your package can be released and returned to transit.</p>
       </div>
-      <button class="pay-now-btn" onclick="window.location.href='care.html?tracking='+new URLSearchParams(window.location.search).get('tracking')">Pay Now</button>
-
-      <div class="care-section">
-        <h3>Contact Customer Care</h3>
-        <p>Having issues? Chat with us live or send a message.</p>
-        <a href="care.html" id="liveChatLink" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:rgba(79,163,255,0.1);border:1px solid rgba(79,163,255,0.25);border-radius:var(--radius);color:var(--primary);font-size:14px;font-weight:700;text-decoration:none;margin-bottom:14px;transition:var(--transition);" onmouseover="this.style.background='rgba(79,163,255,0.18)'" onmouseout="this.style.background='rgba(79,163,255,0.1)'">💬 Start Live Chat</a>
-        <div class="care-success" id="careSuccess">✓ Message sent! We'll get back to you shortly.</div>
-        <form class="care-form" id="careForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onsubmit="handleCare(event)">
-          <input type="hidden" name="tracking_number" id="hiddenTracking" />
-          <input class="care-input" type="text" name="name" placeholder="Your name" required />
-          <input class="care-input" type="email" name="email" placeholder="Your email" required />
-          <textarea class="care-input" name="message" rows="4" placeholder="Describe your issue..." required></textarea>
-          <button class="care-submit" type="submit">Send Message</button>
-        </form>
-      </div>
+      <button class="pay-now-btn" id="payNowBtn">Pay Now</button>
     </div>
   </div>
 
@@ -208,25 +194,9 @@
     const fee = params.get('fee');
     const tracking = params.get('tracking');
     if (fee) document.getElementById('feeAmount').textContent = fee;
-    if (tracking) {
-      document.getElementById('trackingRef').textContent = 'Tracking #' + tracking;
-      document.getElementById('hiddenTracking').value = tracking;
-      document.getElementById('liveChatLink').href = 'care.html?tracking=' + tracking;
-    }
-    document.getElementById('careForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        form.style.display = 'none';
-        document.getElementById('careSuccess').style.display = 'block';
-      } else {
-        alert('Failed to send message. Please try again.');
-      }
+    if (tracking) document.getElementById('trackingRef').textContent = 'Tracking #' + tracking;
+    document.getElementById('payNowBtn').addEventListener('click', () => {
+      window.location.href = 'care.html?tracking=' + (tracking || '');
     });
     document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.replace(); });
     window.addEventListener('load', () => { if (window.lucide) lucide.replace(); });
