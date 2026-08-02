@@ -255,6 +255,7 @@ function showResult(data) {
   shippedAddressField.innerHTML = data.originAddress.replace(/, /g, '<br>');
   setStatusBadge(data.status);
   setProgress(data.progress);
+  document.getElementById('lastStep').textContent = data.status === 'Awaiting Receipt Purchase' ? 'Ready for Pickup' : 'Delivered';
 
   const existing = document.getElementById('payFeeBtn');
   if (existing) existing.remove();
