@@ -1,4 +1,21 @@
 const TRACKING_DATA = {
+  VS2TTA8QN: {
+    status: 'Awaiting Receipt Purchase',
+    courier: 'FedEx',
+    company: 'FedEx',
+    location: 'Toledo, Ohio, USA',
+    estimatedDelivery: 'Ready for Pickup upon Receipt',
+    latestUpdate: 'Package is ready to be picked up. Please complete receipt purchase to proceed.',
+    fee: '$55',
+    progress: ['Ordered', 'Confirmed', 'Shipped'],
+    timelineTemplate: [
+      { hoursAgo: 0.1, event: 'Awaiting Receipt Purchase', note: 'Package is ready for pickup at Toledo facility. Receipt purchase required.' },
+      { hoursAgo: 0.3, event: 'Arrived at facility',       note: 'Package arrived at Toledo, Ohio distribution center.' },
+      { hoursAgo: 0.6, event: 'Shipment picked up',        note: 'Pickup confirmed by FedEx courier.' },
+      { hoursAgo: 1.0, event: 'Shipment processed',        note: 'Shipment has entered the carrier network.' }
+    ],
+    originAddress: 'Toledo, Ohio, USA'
+  },
   GDY234923: {
     status: 'Awaiting Custom Approval',
     courier: 'FedEx',
@@ -164,7 +181,7 @@ function getDateInDays(days) {
 }
 
 // ── Per-user localStorage ──
-const CACHE_VERSION = 'v6';
+const CACHE_VERSION = 'v7';
 function getUserData(id) {
   try { const s = localStorage.getItem(CACHE_VERSION + '_' + id); return s ? JSON.parse(s) : null; } catch { return null; }
 }
@@ -207,6 +224,7 @@ const statusStyles = {
   'Out for Delivery':              { background: '#f39c12', text: '#fff' },
   'Awaiting Custom Approval':      { background: '#9b59b6', text: '#fff' },
   'Awaiting Custom Fee Payment':   { background: '#c0392b', text: '#fff' },
+  'Awaiting Receipt Purchase':         { background: '#1a6fb5', text: '#fff' },
   'Held for Receipt Confirmation': { background: '#e67e22', text: '#fff' }
 };
 
